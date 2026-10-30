@@ -755,9 +755,9 @@
   <script>
     const ADMIN_USER_ID = "7982111846";
 
-    // App User State
+    // User State
     let userState = {
-      tnsrBalance: 10.00, // Default 10 TNSR Joining Bonus
+      tnsrBalance: 10.00, // 10 TNSR Joining bonus
       ethBalance: 0.0000,
       energy: 1000,
       maxEnergy: 1000,
@@ -773,7 +773,7 @@
       userWallet: ""
     };
 
-    // Firebase Config
+    // Firebase Credentials
     const firebaseConfig = {
       apiKey: "AIzaSyCuc9QmktaDJetlNqTo1QRE52GlM59mdNM",
       authDomain: "bhullar-c9b6b.firebaseapp.com",
@@ -788,8 +788,10 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // 1. Detect Real Telegram User Dynamic Info
+    // Telegram User Info
     let currentTgId = "";
+    let currentTgName = "Guest Member";
+
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
@@ -798,15 +800,15 @@
       const tgUser = tg.initDataUnsafe && tg.initDataUnsafe.user;
       if (tgUser) {
         currentTgId = String(tgUser.id);
-        const fullName = `${tgUser.first_name || ""} ${tgUser.last_name || ""}`.trim() || (tgUser.username ? `@${tgUser.username}` : "Member");
+        currentTgName = `${tgUser.first_name || ""} ${tgUser.last_name || ""}`.trim() || (tgUser.username ? `@${tgUser.username}` : "Member");
         
-        let headerHtml = `[ ${fullName} ]`;
+        let headerHtml = `[ ${currentTgName} ]`;
         if (currentTgId === ADMIN_USER_ID) {
           headerHtml += ` <a href="admin.html" class="admin-badge">ADMIN</a>`;
         }
         document.getElementById("userNameDisplay").innerHTML = headerHtml;
         document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
-        document.getElementById("userAvatarText").innerText = fullName.charAt(0).toUpperCase();
+        document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
         document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
       } else {
         document.getElementById("userNameDisplay").innerText = "[ Guest User ]";
@@ -816,7 +818,7 @@
       }
     }
 
-    // Load Local Storage
+    // Local Storage Loading
     const storageKey = `tnsr_state_${currentTgId || 'guest'}`;
     const saved = localStorage.getItem(storageKey);
     if (saved) {
@@ -839,7 +841,7 @@
       renderUI();
     }
 
-    // 2. Real-time Firebase Sync with Admin Settings
+    // Real-time Database Sync
     db.ref("adminSettings").on("value", (snap) => {
       const data = snap.val();
       if (data) {
@@ -856,7 +858,6 @@
         if (data.task3Link) userState.task3Link = data.task3Link;
         if (data.enableCheck !== undefined) userState.enableCheck = data.enableCheck;
 
-        // Update UI
         document.getElementById("depositAddressText").innerText = userState.depositAddress;
         document.getElementById("depositQrImage").src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(userState.depositAddress)}`;
         document.getElementById("minDepositLimitText").innerText = userState.minDeposit;
@@ -885,7 +886,7 @@
       }
     }
 
-    // Tap Mining
+    // Tap Handling
     function handleCoinTap(event) {
       if (userState.energy <= 0) return;
       userState.energy -= 1;
@@ -914,13 +915,12 @@
       }
     }, 3000);
 
-    // Tasks with Enable Check Logic
+    // Tasks Handling
     function handleTaskClick(taskNum) {
       const btn = document.getElementById(`task${taskNum}Btn`);
       if (btn.classList.contains("btn-done")) return;
 
       const link = taskNum === 1 ? userState.task1Link : taskNum === 2 ? userState.task2Link : userState.task3Link;
-      
       if (link && link.startsWith("http")) {
         window.open(link, "_blank");
       }
@@ -944,7 +944,7 @@
       }
     }
 
-    // Navigation & Modals
+    // Navigation and Modals
     function switchTab(tab) {
       document.querySelectorAll(".app-screen").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -993,11 +993,16 @@
       alert(`Claimed +${amt} TNSR!`);
     }
 
-    // Minimum 10.1 TNSR Withdraw Check
+    // Real Firebase Withdrawal System
     function submitWithdraw() {
       const amt = parseFloat(document.getElementById("withdrawAmountInput").value);
+      const destAddress = document.getElementById("withdrawDestinationInput").value.trim();
       const minLimit = userState.minWithdraw || 10.1;
 
+      if (!destAddress) {
+        alert("Please enter destination wallet address!");
+        return;
+      }
       if (isNaN(amt) || amt < minLimit) {
         alert(`Minimum withdrawal amount is ${minLimit} TNSR!`);
         return;
@@ -1007,10 +1012,32 @@
         return;
       }
 
+      // Deduct Balance
       userState.tnsrBalance -= amt;
       saveState();
-      closeModal("modal-withdraw");
-      alert(`Withdrawal request of ${amt} TNSR submitted successfully!`);
+
+      // Push Request to Firebase
+      const withdrawData = {
+        userId: currentTgId || "Unknown",
+        userName: currentTgName,
+        walletAddress: destAddress,
+        amount: amt,
+        status: "Pending",
+        timestamp: new Date().toLocaleString()
+      };
+
+      db.ref("withdrawRequests").push(withdrawData)
+        .then(() => {
+          closeModal("modal-withdraw");
+          document.getElementById("withdrawDestinationInput").value = "";
+          alert(`Withdrawal request of ${amt} TNSR submitted successfully! Status: Pending Approval.`);
+        })
+        .catch((err) => {
+          // Revert balance on error
+          userState.tnsrBalance += amt;
+          saveState();
+          alert("Error submitting request: " + err.message);
+        });
     }
 
     function closeApp() {
