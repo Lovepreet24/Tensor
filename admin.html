@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tensor Admin Control</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #080b11; color: #fff; padding: 20px; }
+    .container { max-width: 550px; margin: 0 auto; background: #141724; padding: 22px; border-radius: 16px; border: 1px solid #1f2338; }
+    h2 { margin-bottom: 16px; font-size: 20px; color: #f5a623; }
+    .section-title { font-size: 13px; font-weight: 700; color: #00e5ff; margin: 18px 0 10px; border-bottom: 1px solid #232742; padding-bottom: 5px; text-transform: uppercase; }
+    label { display: block; font-size: 12px; color: #8e95a5; margin-bottom: 5px; }
+    input[type="text"], input[type="number"], input[type="password"] {
+      width: 100%; background: #0c0f17; border: 1px solid #232742; padding: 12px; border-radius: 8px; color: #fff; font-size: 13px; margin-bottom: 14px;
+    }
+    input:focus { outline: none; border-color: #f5a623; }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0c0f17;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #232742;
+      margin-bottom: 14px;
+    }
+    .toggle-row span { font-size: 13px; font-weight: 600; color: #fff; }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #333; transition: .3s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+    input:checked + .slider { background-color: #00e676; }
+    input:checked + .slider:before { transform: translateX(20px); }
+    button { width: 100%; background: #f5a623; color: #000; font-weight: 800; border: none; padding: 14px; border-radius: 10px; font-size: 15px; cursor: pointer; margin-top: 10px; }
+    button:active { background: #d48b16; }
+    #loginBox, #panelBox { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="loginBox">
+      <h2>Tensor Admin Login</h2>
+      <p style="font-size: 12px; color: #8e95a5; margin-bottom: 12px;">Authorized Admin ID: <strong>7982111846</strong></p>
+      <label>Admin Password / Secret Key</label>
+      <input type="password" id="adminPassInput" placeholder="Enter password (default: admin123)">
+      <button onclick="checkAdminLogin()">Login</button>
+    </div>
+
+    <div id="panelBox">
+      <h2>Tensor App Control Center</h2>
+
+      <div class="section-title">Withdrawal & Bonus Settings</div>
+      <label>Minimum Withdrawal Limit (TNSR)</label>
+      <input type="number" step="0.1" id="minWithdrawInput" placeholder="10.1">
+
+      <div class="section-title">Token & Exchange Rates</div>
+      <label>Tensor Coin (TNSR) USD Price ($)</label>
+      <input type="number" step="0.01" id="tnsrRateInput" placeholder="3.55">
+      <label>Ethereum (ETH) USD Price ($)</label>
+      <input type="number" step="0.01" id="ethRateInput" placeholder="2224.33">
+
+      <div class="section-title">ETH Deposit Settings</div>
+      <label>Admin ETH Deposit Address</label>
+      <input type="text" id="depositAddressInput" placeholder="0x...">
+      <label>Minimum Deposit Limit (ETH)</label>
+      <input type="number" step="0.001" id="minDepositInput" placeholder="0.005">
+
+      <div class="section-title">Channel & Social Tasks</div>
+      <label>Task 1 Title</label>
+      <input type="text" id="task1TitleInput" placeholder="Join Telegram Channel">
+      <label>Task 1 Link (Telegram URL)</label>
+      <input type="text" id="task1LinkInput" placeholder="https://t.me/...">
+
+      <label>Task 2 Title</label>
+      <input type="text" id="task2TitleInput" placeholder="Join Telegram Folder">
+      <label>Task 2 Link (Telegram Folder URL)</label>
+      <input type="text" id="task2LinkInput" placeholder="https://t.me/addlist/...">
+
+      <label>Task 3 Title</label>
+      <input type="text" id="task3TitleInput" placeholder="Follow Twitter / X">
+      <label>Task 3 Link</label>
+      <input type="text" id="task3LinkInput" placeholder="https://x.com/...">
+
+      <div class="section-title">Task Verification Switch</div>
+      <div class="toggle-row">
+        <span>Enable Task Check? (Mandatory Verification)</span>
+        <label class="switch">
+          <input type="checkbox" id="enableCheckInput" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <button onclick="saveAdminSettings()">Save All Settings</button>
+      <div id="saveStatus" style="font-size: 13px; color: #00e676; text-align: center; margin-top: 12px; font-weight: 700;"></div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuc9QmktaDJetlNqTo1QRE52GlM59mdNM",
+      authDomain: "bhullar-c9b6b.firebaseapp.com",
+      databaseURL: "https://bhullar-c9b6b-default-rtdb.firebaseio.com",
+      projectId: "bhullar-c9b6b",
+      storageBucket: "bhullar-c9b6b.firebasestorage.app",
+      messagingSenderId: "487376263773",
+      appId: "1:487376263773:web:af7276f5c6bab373434bb4",
+      measurementId: "G-9E5H1Y4E7D"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const ADMIN_PASSWORD = "admin123";
+
+    function checkAdminLogin() {
+      const pass = document.getElementById("adminPassInput").value;
+      if (pass === ADMIN_PASSWORD) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("panelBox").style.display = "block";
+        loadCurrentSettings();
+      } else {
+        alert("Incorrect Password!");
+      }
+    }
+
+    function loadCurrentSettings() {
+      db.ref("adminSettings").once("value", (snap) => {
+        const data = snap.val();
+        if (data) {
+          if (data.minWithdraw) document.getElementById("minWithdrawInput").value = data.minWithdraw;
+          if (data.tnsrRateUsd) document.getElementById("tnsrRateInput").value = data.tnsrRateUsd;
+          if (data.ethRateUsd) document.getElementById("ethRateInput").value = data.ethRateUsd;
+          if (data.depositAddress) document.getElementById("depositAddressInput").value = data.depositAddress;
+          if (data.minDeposit) document.getElementById("minDepositInput").value = data.minDeposit;
+
+          if (data.task1Title) document.getElementById("task1TitleInput").value = data.task1Title;
+          if (data.task1Link) document.getElementById("task1LinkInput").value = data.task1Link;
+          if (data.task2Title) document.getElementById("task2TitleInput").value = data.task2Title;
+          if (data.task2Link) document.getElementById("task2LinkInput").value = data.task2Link;
+          if (data.task3Title) document.getElementById("task3TitleInput").value = data.task3Title;
+          if (data.task3Link) document.getElementById("task3LinkInput").value = data.task3Link;
+
+          if (data.enableCheck !== undefined) {
+            document.getElementById("enableCheckInput").checked = data.enableCheck;
+          }
+        }
+      });
+    }
+
+    function saveAdminSettings() {
+      const payload = {
+        minWithdraw: document.getElementById("minWithdrawInput").value || "10.1",
+        tnsrRateUsd: document.getElementById("tnsrRateInput").value || "3.55",
+        ethRateUsd: document.getElementById("ethRateInput").value || "2224.33",
+        depositAddress: document.getElementById("depositAddressInput").value || "0xf0bE76d467Bfb36473dBF5aAd3A770640bD7F551",
+        minDeposit: document.getElementById("minDepositInput").value || "0.005",
+        task1Title: document.getElementById("task1TitleInput").value || "Join Telegram Channel",
+        task1Link: document.getElementById("task1LinkInput").value || "https://t.me/",
+        task2Title: document.getElementById("task2TitleInput").value || "Join Telegram Folder",
+        task2Link: document.getElementById("task2LinkInput").value || "https://t.me/",
+        task3Title: document.getElementById("task3TitleInput").value || "Follow Twitter / X",
+        task3Link: document.getElementById("task3LinkInput").value || "https://x.com/",
+        enableCheck: document.getElementById("enableCheckInput").checked,
+        updatedAt: Date.now()
+      };
+
+      db.ref("adminSettings").set(payload, (err) => {
+        if (!err) {
+          document.getElementById("saveStatus").innerText = "✓ Settings successfully updated!";
+          setTimeout(() => { document.getElementById("saveStatus").innerText = ""; }, 3000);
+        } else {
+          alert("Error: " + err.message);
+        }
+      });
+    }
+
+    document.getElementById("loginBox").style.display = "block";
+  </script>
+</body>
+</html>
