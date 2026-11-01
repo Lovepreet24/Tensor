@@ -213,7 +213,7 @@
     .daily-reward-btn i { color: #ff4757; font-size: 20px; }
     .daily-reward-btn span { font-size: 9.5px; color: var(--text-gray); text-align: center; line-height: 1.1; }
 
-    /* Exact Original Center Logo Coin */
+    /* Center Tensor Logo Coin */
     .coin-container {
       display: flex;
       justify-content: center;
@@ -237,7 +237,6 @@
     }
     .coin-outer-circle:active { transform: scale(0.96); }
     
-    /* Exact Tensor Arrow SVG */
     .tensor-logo-svg {
       width: 120px;
       height: 120px;
@@ -282,7 +281,6 @@
     .stat-pill.energy i { color: var(--accent-yellow); }
     .stat-pill.timer i { color: var(--accent-cyan); }
 
-    /* Tap Connect Wallet Card on Tap Tab */
     .tap-connect-wallet-strip {
       background: #141724;
       border: 1px solid #23293d;
@@ -415,6 +413,100 @@
     .btn-task-action.done {
       background: #00e676;
       color: #000000;
+    }
+
+    /* REFER PAGE EXACT REPLICA */
+    .refer-container {
+      padding: 10px 18px;
+    }
+    .refer-header-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin: 15px 0 20px;
+    }
+    .refer-card {
+      background: #121522;
+      border: 1px solid #1f2538;
+      border-radius: 18px;
+      padding: 22px 18px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .refer-card .card-head {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .refer-card .reward-highlight {
+      font-size: 16px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+    .refer-card .reward-highlight span {
+      color: var(--accent-yellow);
+    }
+    .refer-card.how-it-works {
+      text-align: left;
+    }
+    .refer-card.how-it-works h4 {
+      color: #ff4757;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .refer-card.how-it-works p {
+      color: #cbd5e1;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .refer-stat-card {
+      background: #121522;
+      border: 1px solid #1f2538;
+      border-radius: 18px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .refer-stat-card .label {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .refer-stat-card .val {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--accent-yellow);
+    }
+    .refer-link-box {
+      background: #0d101a;
+      border: 1px solid #1f2538;
+      border-radius: 14px;
+      padding: 16px 14px;
+      font-size: 12.5px;
+      font-family: monospace;
+      color: #94a3b8;
+      word-break: break-all;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .btn-invite-friend {
+      width: 100%;
+      background: #1b2133;
+      border: 1px solid #28314a;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
     }
 
     /* WALLET SCREEN STYLES */
@@ -720,7 +812,77 @@
       cursor: pointer;
     }
 
-    /* In-App Admin Settings */
+    /* TOP RIGHT WALLET SCREEN (Exact Replica) */
+    .wallet-modal-user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .wallet-modal-user .user-col {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .wallet-modal-user .active-pill {
+      font-size: 11px;
+      color: var(--accent-green);
+      font-weight: 800;
+    }
+    .wallet-modal-total-box {
+      background: #141727;
+      border: 1px solid #232940;
+      border-radius: 18px;
+      padding: 24px 18px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .wallet-modal-total-box .lbl {
+      font-size: 11px;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    .wallet-modal-total-box h2 {
+      font-size: 30px;
+      font-weight: 900;
+      margin: 6px 0 2px;
+      color: #fff;
+    }
+    .wallet-modal-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .wallet-action-btn {
+      flex: 1;
+      background: #141727;
+      border: 1px solid #232940;
+      border-radius: 16px;
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .wallet-action-btn .icon-cir {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #1c2238;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .wallet-action-btn span {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
     .admin-input-group { margin-bottom: 14px; }
     .admin-input-group label {
       display: block;
@@ -797,8 +959,8 @@
         <span id="userAccountDisplay">Account number: 7982111846</span>
       </div>
     </div>
-    <!-- Top Right SOL Wallet Pill -->
-    <div class="sol-wallet-top" onclick="switchTab('wallet')">
+    <!-- Top Right SOL Wallet Pill (Click opens Wallet modal) -->
+    <div class="sol-wallet-top" onclick="openModal('modal-wallet-overview')">
       <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
       <div class="sol-label-col">
         <span>WALLET</span>
@@ -820,7 +982,7 @@
       <span>Daily<br>Rewards</span>
     </div>
 
-    <!-- Tensor Center Coin with Exact Vector Arrow -->
+    <!-- Tensor Center Coin -->
     <div class="coin-container">
       <div class="coin-outer-circle" id="coinTapBtn" onclick="handleCoinTap(event)">
         <svg class="tensor-logo-svg" viewBox="0 0 100 100">
@@ -846,7 +1008,6 @@
       </div>
     </div>
 
-    <!-- Connect Wallet Strip at bottom of Tap Tab -->
     <div class="tap-connect-wallet-strip" onclick="openConnectModal('Trust Wallet')">
       <div class="left">
         <i class="fa-solid fa-wallet"></i>
@@ -859,12 +1020,11 @@
     </div>
   </div>
 
-  <!-- TAB 2: TASKS SCREEN (Exact 6 Tasks Replica) -->
+  <!-- TAB 2: TASKS SCREEN -->
   <div id="screen-task" class="app-screen">
     <div class="task-page-container">
       <h1 class="tasks-header-title">TASKS</h1>
 
-      <!-- Task 1 -->
       <div class="task-card-item completed" id="taskCard1">
         <div class="task-card-left">
           <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -880,7 +1040,6 @@
         <button class="btn-task-action done" id="task1Btn">✓ Done</button>
       </div>
 
-      <!-- Task 2 -->
       <div class="task-card-item" id="taskCard2">
         <div class="task-card-left">
           <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -896,7 +1055,6 @@
         <button class="btn-task-action" id="task2Btn" onclick="handleTaskClick(2)">Start</button>
       </div>
 
-      <!-- Task 3 -->
       <div class="task-card-item" id="taskCard3">
         <div class="task-card-left">
           <div class="task-round-icon twitter-icon"><i class="fa-brands fa-x-twitter"></i></div>
@@ -912,7 +1070,6 @@
         <button class="btn-task-action" id="task3Btn" onclick="handleTaskClick(3)">Start</button>
       </div>
 
-      <!-- Task 4 -->
       <div class="task-card-item" id="taskCard4">
         <div class="task-card-left">
           <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -927,7 +1084,6 @@
         <button class="btn-task-action" id="task4Btn" onclick="handleTaskClick(4)">Start</button>
       </div>
 
-      <!-- Task 5 -->
       <div class="task-card-item" id="taskCard5">
         <div class="task-card-left">
           <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -942,7 +1098,6 @@
         <button class="btn-task-action" id="task5Btn" onclick="handleTaskClick(5)">Start</button>
       </div>
 
-      <!-- Task 6 -->
       <div class="task-card-item" id="taskCard6">
         <div class="task-card-left">
           <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -961,20 +1116,44 @@
     </div>
   </div>
 
-  <!-- TAB 3: REFERRAL SCREEN -->
+  <!-- TAB 3: REFERRAL SCREEN (Exact Screenshot 1000152359.jpg Replica) -->
   <div id="screen-refer" class="app-screen">
-    <div class="balance-box">
-      <h2>INVITE FRIENDS</h2>
-      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Share your link and earn 10% referral bonuses.</p>
-    </div>
-    <div style="background: #141724; border: 1px solid #23293d; border-radius: 16px; padding: 20px; margin: 18px;">
-      <h4 style="margin-bottom: 8px;">Your Unique Invite Link</h4>
-      <div class="address-pill" id="referralLinkText">Loading link...</div>
-      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 0;" onclick="copyRefLink()"><i class="fa-regular fa-copy"></i> Copy Link</button>
+    <div class="refer-container">
+      <h1 class="refer-header-title">INVITE FRIENDS!</h1>
+
+      <!-- Card 1 -->
+      <div class="refer-card">
+        <div class="card-head">INVITE A FRIEND</div>
+        <div class="reward-highlight">
+          <span>+300 TENSOR (~$9)</span> For A<br>Successful Refer!!
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="refer-card how-it-works">
+        <h4>How it Works</h4>
+        <p>For a successful referral, your friend must join and start using the app through your link.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="refer-stat-card">
+        <span class="label">Total Referrals</span>
+        <span class="val" id="totalReferralsCount">2</span>
+      </div>
+
+      <!-- Referral Link Box -->
+      <div class="refer-link-box" id="referralLinkText" onclick="copyRefLink()">
+        https://t.me/TensorMiningRobot/myapp?startapp=ref_7982111846
+      </div>
+
+      <!-- Button -->
+      <button class="btn-invite-friend" onclick="shareReferralLink()">
+        Invite a friend
+      </button>
     </div>
   </div>
 
-  <!-- TAB 4: WALLET SCREEN (Exact Replica) -->
+  <!-- TAB 4: WALLET SCREEN -->
   <div id="screen-wallet" class="app-screen">
     <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 5px;">WALLET</h3>
 
@@ -990,7 +1169,6 @@
 
     <div class="wallet-list-heading">Your wallets</div>
 
-    <!-- 5 Wallets from Screenshots -->
     <div class="wallet-exchange-card">
       <div class="wallet-exchange-left">
         <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 24px;"></i>
@@ -1037,7 +1215,7 @@
     <p style="text-align: center; font-size: 11px; color: var(--text-gray); margin: 20px 18px;">Connect your wallets now so withdrawals are ready when Tensor goes live.</p>
   </div>
 
-  <!-- TAB 5: IN-APP ADMIN SUITE (Exclusive to 7982111846) -->
+  <!-- TAB 5: IN-APP ADMIN SUITE -->
   <div id="screen-admin" class="app-screen">
     <div class="balance-box">
       <h2 style="font-size: 20px; font-weight: 900; color: var(--accent-yellow);"><i class="fa-solid fa-sliders"></i> Master Admin Suite</h2>
@@ -1106,15 +1284,18 @@
     </button>
   </div>
 
-  <!-- WITHDRAW MODAL (Exact Screenshot Replica) -->
+  <!-- EXACT SCREENSHOT WITHDRAW MODAL (1000152365_2.jpg & 1000152364_2.jpg) -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title">Withdraw TENSOR</h3>
 
+      <!-- Balance Card -->
       <div class="withdraw-balance-card">
         <div class="mini-icon">
-          <i class="fa-solid fa-bolt" style="color: #fff;"></i>
+          <svg style="width: 20px; height: 20px; fill: #fff;" viewBox="0 0 100 100">
+            <path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" />
+          </svg>
         </div>
         <div>
           <span class="field-label" style="margin-bottom: 2px;">BALANCE</span>
@@ -1122,11 +1303,13 @@
         </div>
       </div>
 
+      <!-- Destination Address with Exact Placeholder -->
       <label class="field-label">DESTINATION ADDRESS</label>
       <div class="input-address-box">
         <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address">
       </div>
 
+      <!-- Amount Input with MAX -->
       <label class="field-label">AMOUNT</label>
       <div class="amount-input-box">
         <div class="left">
@@ -1134,7 +1317,7 @@
           <span>TENSOR</span>
         </div>
         <div class="right">
-          <input type="number" id="withdrawAmountInput" step="1" oninput="calculateWithdrawUsd()">
+          <input type="number" id="withdrawAmountInput" placeholder="0.00" step="1" oninput="calculateWithdrawUsd()">
           <button class="max-btn" onclick="setMaxWithdrawAmount()">MAX</button>
         </div>
       </div>
@@ -1157,6 +1340,64 @@
         <button class="btn-withdraw-direct" id="directWithdrawButton" onclick="submitWithdraw()">
           Withdraw
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXACT TOP-RIGHT WALLET MODAL (1000152366_2.jpg) -->
+  <div class="modal-overlay" id="modal-wallet-overview">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('modal-wallet-overview')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title" style="margin-bottom: 15px;">Wallet</h3>
+
+      <div class="wallet-modal-user">
+        <div class="user-col">
+          <div class="user-avatar" style="width: 38px; height: 38px; font-size: 15px;">L</div>
+          <div>
+            <h5 style="font-size: 14px; font-weight: 800;">Love Bhullar</h5>
+            <span style="font-size: 10.5px; color: var(--text-gray); font-family: monospace;">ID 7982111846</span>
+          </div>
+        </div>
+        <span class="active-pill">• Active</span>
+      </div>
+
+      <div class="wallet-modal-total-box">
+        <div class="lbl">TOTAL BALANCE</div>
+        <h2>0.0000 SOL</h2>
+        <div style="font-size: 12px; color: var(--accent-green); font-weight: 700;">≈ $0.00 USD</div>
+      </div>
+
+      <div class="wallet-modal-actions">
+        <div class="wallet-action-btn" onclick="goToSolTopUp()">
+          <div class="icon-cir" style="color: var(--accent-green);"><i class="fa-solid fa-arrow-down"></i></div>
+          <span>Deposit</span>
+        </div>
+        <div class="wallet-action-btn" onclick="closeModal('modal-wallet-overview'); openWithdrawModal();">
+          <div class="icon-cir" style="color: #0099ff;"><i class="fa-solid fa-arrow-up"></i></div>
+          <span>Withdraw</span>
+        </div>
+        <div class="wallet-action-btn" onclick="showToast('No history yet')">
+          <div class="icon-cir" style="color: #cbd5e1;"><i class="fa-regular fa-clock"></i></div>
+          <span>History</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">
+        <span>Assets</span>
+        <span>Balance</span>
+      </div>
+      <div style="background: #141727; border: 1px solid #232940; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #14F195, #9945FF); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #000;"><i class="fa-solid fa-bolt"></i></div>
+          <div>
+            <div style="font-size: 13px; font-weight: 800;">SOL</div>
+            <div style="font-size: 10.5px; color: var(--text-gray);">$95.51</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 13px; font-weight: 800;">0.0000</div>
+          <div style="font-size: 10.5px; color: var(--accent-green);">$0.00</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1222,7 +1463,8 @@
       depositAddress: "9aEfD5f041BCd918BF2ed075498a1277CcF2866d",
       userWallet: "",
       withdrawMode: "normal_flow",
-      withdrawDateNotice: "15 November 2026"
+      withdrawDateNotice: "15 November 2026",
+      referralsCount: 2
     };
 
     const firebaseConfig = {
@@ -1287,7 +1529,7 @@
       document.getElementById("userNameDisplay").innerHTML = headerHtml;
       document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
       document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
-      document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
+      document.getElementById("referralLinkText").innerText = `https://t.me/TensorMiningRobot/myapp?startapp=ref_${currentTgId}`;
     }
 
     const storageKey = `tnsr_state_${currentTgId || 'guest'}`;
@@ -1388,6 +1630,7 @@
       }
     }
 
+    // Tap Handling with Real Vibration / Haptic Feedback
     function handleCoinTap(event) {
       if (userState.energy <= 0) {
         showToast("Energy exhausted!", "error");
@@ -1396,6 +1639,13 @@
       userState.energy -= 1;
       userState.tnsrBalance += 0.01;
       saveState();
+
+      // Real Telegram Haptic Vibration
+      if (window.Telegram?.WebApp?.HapticFeedback) {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred("medium");
+      } else if (navigator.vibrate) {
+        navigator.vibrate(40);
+      }
 
       const coinBox = document.querySelector(".coin-container");
       const num = document.createElement("div");
@@ -1406,10 +1656,6 @@
       num.style.top = `${(event.clientY || rect.top + rect.height / 2) - rect.top - 20}px`;
       coinBox.appendChild(num);
       setTimeout(() => num.remove(), 800);
-
-      if (window.Telegram?.WebApp?.HapticFeedback) {
-        window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
-      }
     }
 
     setInterval(() => {
@@ -1460,6 +1706,7 @@
 
     function goToSolTopUp() {
       closeModal("modal-withdraw");
+      closeModal("modal-wallet-overview");
       openModal("modal-deposit");
     }
 
@@ -1488,6 +1735,17 @@
         saveState();
         showToast("Task completed! Rewards added.", "success");
       };
+    }
+
+    function shareReferralLink() {
+      const link = document.getElementById("referralLinkText").innerText.trim();
+      const text = `Join Tensor Mining and earn free TENSOR + SOL!\n${link}`;
+      if (window.Telegram?.WebApp?.openTelegramLink) {
+        window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent("Join Tensor Mining and earn free TENSOR + SOL!")}`);
+      } else {
+        navigator.clipboard.writeText(link);
+        showToast("Invite link copied to clipboard!");
+      }
     }
 
     function switchTab(tab) {
@@ -1527,7 +1785,7 @@
     }
 
     function copyRefLink() {
-      navigator.clipboard.writeText(document.getElementById("referralLinkText").innerText);
+      navigator.clipboard.writeText(document.getElementById("referralLinkText").innerText.trim());
       showToast("Referral link copied!", "success");
     }
 
