@@ -485,7 +485,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
       display: none;
       align-items: flex-end;
@@ -521,7 +521,7 @@
     }
     .modal-title { font-size: 19px; font-weight: 900; margin-bottom: 20px; }
 
-    /* EXACT DAILY REWARDS GRID (Screenshots 1000152358.jpg & 1000152357.jpg) */
+    /* DAILY REWARDS GRID */
     .daily-rewards-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -540,14 +540,8 @@
       gap: 4px;
       position: relative;
     }
-    .daily-card-day.active-day {
-      border: 1.5px solid var(--accent-yellow);
-    }
-    .daily-card-day .d-title {
-      font-size: 9.5px;
-      color: #94a3b8;
-      font-weight: 700;
-    }
+    .daily-card-day.active-day { border: 1.5px solid var(--accent-yellow); }
+    .daily-card-day .d-title { font-size: 9.5px; color: #94a3b8; font-weight: 700; }
     .daily-card-day .d-icon-circle {
       width: 26px;
       height: 26px;
@@ -559,18 +553,8 @@
       justify-content: center;
       margin: 2px 0;
     }
-    .daily-card-day .d-amount {
-      font-size: 11px;
-      font-weight: 900;
-      color: #ffffff;
-    }
-    .daily-card-day .d-unit {
-      font-size: 7.5px;
-      color: #94a3b8;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-top: -2px;
-    }
+    .daily-card-day .d-amount { font-size: 11px; font-weight: 900; color: #ffffff; }
+    .daily-card-day .d-unit { font-size: 7.5px; color: #94a3b8; font-weight: 800; text-transform: uppercase; margin-top: -2px; }
     .daily-card-day .d-claim-pill {
       background: var(--accent-yellow);
       color: #000;
@@ -591,7 +575,6 @@
       border-radius: 8px;
       margin-top: 4px;
     }
-
     .btn-daily-bottom-action {
       width: 100%;
       background: var(--accent-yellow);
@@ -609,7 +592,7 @@
       cursor: not-allowed;
     }
 
-    /* WITHDRAW MODAL EXACT LAYOUT */
+    /* EXACT WITHDRAW MODAL STYLING (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) */
     .field-label {
       font-size: 11px;
       letter-spacing: 0.5px;
@@ -629,24 +612,35 @@
       gap: 14px;
       margin-bottom: 18px;
     }
-    .withdraw-balance-card .mini-icon {
+    .withdraw-balance-card .mini-icon-box {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #000;
+      background: #000000;
       border: 1px solid #2b354f;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .withdraw-balance-card .val { font-size: 20px; font-weight: 900; color: #fff; }
-    .withdraw-balance-card .val span { color: var(--accent-yellow); }
+    .withdraw-balance-card .mini-icon-box svg {
+      width: 22px;
+      height: 22px;
+      fill: #ffffff;
+    }
+    .withdraw-balance-card .val {
+      font-size: 20px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .withdraw-balance-card .val span {
+      color: var(--accent-yellow);
+    }
 
     .input-address-box {
       background: #151928;
       border: 1px solid #232b42;
       border-radius: 14px;
-      padding: 14px 16px;
+      padding: 15px 16px;
       margin-bottom: 18px;
     }
     .input-address-box input {
@@ -654,11 +648,16 @@
       background: transparent;
       border: none;
       outline: none;
-      color: #fff;
+      color: #ffffff;
       font-family: monospace;
-      font-size: 13px;
+      font-size: 13.5px;
+    }
+    .input-address-box input::placeholder {
+      color: #556075;
+      font-family: monospace;
     }
 
+    /* Exact Amount Box */
     .amount-input-box {
       background: #151928;
       border: 1px solid #232b42;
@@ -669,29 +668,64 @@
       justify-content: space-between;
       margin-bottom: 6px;
     }
-    .amount-input-box .left { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; }
-    .amount-input-box .right { display: flex; align-items: center; gap: 10px; }
-    .amount-input-box .right input {
+    .amount-input-box .left-token {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .amount-input-box .left-token .token-dot-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #000000;
+      border: 1px solid #2b354f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .amount-input-box .left-token .token-dot-icon svg {
+      width: 11px;
+      height: 11px;
+      fill: #ffffff;
+    }
+    .amount-input-box .left-token span {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent-yellow);
+    }
+    .amount-input-box .right-inputs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .amount-input-box .right-inputs input {
       background: transparent;
       border: none;
       outline: none;
-      color: #fff;
-      font-size: 18px;
+      color: #ffffff;
+      font-size: 19px;
       font-weight: 800;
       text-align: right;
-      width: 100px;
+      width: 80px;
     }
     .amount-input-box .max-btn {
       background: #252014;
       color: var(--accent-yellow);
       border: 1px solid #574415;
       border-radius: 8px;
-      padding: 4px 8px;
+      padding: 4px 10px;
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
       cursor: pointer;
     }
-    .fiat-amount-green { text-align: right; font-size: 12.5px; font-weight: 800; color: var(--accent-green); margin-bottom: 20px; }
+
+    .fiat-amount-green {
+      text-align: right;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-bottom: 20px;
+    }
 
     .insufficient-sol-card {
       background: #231218;
@@ -700,9 +734,23 @@
       padding: 14px 16px;
       margin-bottom: 18px;
     }
-    .insufficient-sol-card h5 { color: #ff5263; font-size: 13.5px; font-weight: 800; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
-    .insufficient-sol-card p { color: #a3888f; font-size: 12px; line-height: 1.4; }
+    .insufficient-sol-card h5 {
+      color: #ff5263;
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .insufficient-sol-card p {
+      color: #a3888f;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 0;
+    }
 
+    /* Official Green Button with Solana Logo */
     .btn-topup-sol {
       width: 100%;
       background: #00c853;
@@ -716,12 +764,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+    }
+    .solana-mini-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .solana-mini-badge svg {
+      width: 13px;
+      height: 13px;
     }
 
     .btn-withdraw-direct {
       width: 100%;
-      background: #1d72b8;
+      background: #1b4d7c;
       color: #ffffff;
       font-size: 15px;
       font-weight: 800;
@@ -729,17 +790,13 @@
       border-radius: 14px;
       padding: 15px;
       cursor: pointer;
+      text-align: center;
     }
 
-    /* TOP-RIGHT WALLET MODAL (Screenshots 1000152354.jpg, 1000152353.jpg, 1000152352.jpg) */
+    /* TOP-RIGHT WALLET MODAL */
     .wallet-subview { display: none; }
     .wallet-subview.active { display: block; }
-    .subview-header-back {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
+    .subview-header-back { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
     .subview-back-icon {
       font-size: 15px;
       cursor: pointer;
@@ -752,7 +809,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .wallet-modal-user { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .wallet-modal-user .user-col { display: flex; align-items: center; gap: 12px; }
     .wallet-modal-user .active-pill { font-size: 11px; color: var(--accent-green); font-weight: 800; }
@@ -1016,7 +1072,7 @@
     </div>
   </div>
 
-  <!-- TAB 3: REFERRAL SCREEN (Exact Replica) -->
+  <!-- TAB 3: REFERRAL SCREEN -->
   <div id="screen-refer" class="app-screen">
     <div class="refer-container">
       <h1 class="refer-header-title">INVITE FRIENDS!</h1>
@@ -1179,7 +1235,7 @@
     </button>
   </div>
 
-  <!-- EXACT DAILY REWARDS MODAL (Screenshots 1000152358.jpg & 1000152357.jpg) -->
+  <!-- DAILY REWARDS MODAL -->
   <div class="modal-overlay" id="modal-daily">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-daily')"><i class="fa-solid fa-xmark"></i></button>
@@ -1192,9 +1248,7 @@
         </div>
       </div>
 
-      <!-- 7 Days Complete Grid -->
       <div class="daily-rewards-grid">
-        <!-- Day 1 -->
         <div class="daily-card-day active-day" id="dCard1">
           <span class="d-title">Day 1</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
@@ -1204,48 +1258,36 @@
             <span class="d-claim-pill" onclick="claimDailyDay(1)">Claim</span>
           </div>
         </div>
-
-        <!-- Day 2 -->
         <div class="daily-card-day" id="dCard2">
           <span class="d-title">Day 2</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
           <span class="d-amount">+10</span>
           <span class="d-unit">TENSOR</span>
         </div>
-
-        <!-- Day 3 -->
         <div class="daily-card-day" id="dCard3">
           <span class="d-title">Day 3</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
           <span class="d-amount">+15</span>
           <span class="d-unit">TENSOR</span>
         </div>
-
-        <!-- Day 4 -->
         <div class="daily-card-day" id="dCard4">
           <span class="d-title">Day 4</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
           <span class="d-amount">+20</span>
           <span class="d-unit">TENSOR</span>
         </div>
-
-        <!-- Day 5 -->
         <div class="daily-card-day" id="dCard5">
           <span class="d-title">Day 5</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
           <span class="d-amount">+30</span>
           <span class="d-unit">TENSOR</span>
         </div>
-
-        <!-- Day 6 -->
         <div class="daily-card-day" id="dCard6">
           <span class="d-title">Day 6</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
           <span class="d-amount">+50</span>
           <span class="d-unit">TENSOR</span>
         </div>
-
-        <!-- Day 7 -->
         <div class="daily-card-day" id="dCard7">
           <span class="d-title">Day 7</span>
           <div class="d-icon-circle"><svg style="width: 12px; height: 12px; fill: #fff;" viewBox="0 0 100 100"><path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" /></svg></div>
@@ -1254,22 +1296,22 @@
         </div>
       </div>
 
-      <!-- Action Button (Toggles between Claim Day 1 Reward and Come back tomorrow) -->
       <button class="btn-daily-bottom-action" id="btnDailyBottom" onclick="claimDailyDay(1)">
         Claim Day 1 Reward
       </button>
     </div>
   </div>
 
-  <!-- WITHDRAW MODAL -->
+  <!-- EXACT 100% REPLICA WITHDRAW MODAL (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title">Withdraw TENSOR</h3>
 
+      <!-- BALANCE CARD WITH TENSOR LOGO -->
       <div class="withdraw-balance-card">
-        <div class="mini-icon">
-          <svg style="width: 20px; height: 20px; fill: #fff;" viewBox="0 0 100 100">
+        <div class="mini-icon-box">
+          <svg viewBox="0 0 100 100">
             <path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" />
           </svg>
         </div>
@@ -1279,35 +1321,51 @@
         </div>
       </div>
 
+      <!-- DESTINATION ADDRESS: CLEAN & NEVER AUTO-FILLED -->
       <label class="field-label">DESTINATION ADDRESS</label>
       <div class="input-address-box">
-        <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address">
+        <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
 
+      <!-- AMOUNT ROW: TENSOR LOGO + GOLDEN TENSOR TEXT + MAX -->
       <label class="field-label">AMOUNT</label>
       <div class="amount-input-box">
-        <div class="left">
-          <i class="fa-solid fa-circle" style="color: #f5a623; font-size: 10px;"></i>
+        <div class="left-token">
+          <div class="token-dot-icon">
+            <svg viewBox="0 0 100 100">
+              <path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" />
+            </svg>
+          </div>
           <span>TENSOR</span>
         </div>
-        <div class="right">
-          <input type="number" id="withdrawAmountInput" placeholder="0.00" step="1" oninput="calculateWithdrawUsd()">
+        <div class="right-inputs">
+          <input type="number" id="withdrawAmountInput" value="10" step="1" oninput="calculateWithdrawUsd()">
           <button class="max-btn" onclick="setMaxWithdrawAmount()">MAX</button>
         </div>
       </div>
 
+      <!-- GREEN FIAT AMOUNT: $0.39 USD -->
       <div class="fiat-amount-green" id="withdrawAmountUsdText">≈ $0.39 USD</div>
 
+      <!-- INSUFFICIENT SOL ALERT & GREEN TOPUP BUTTON WITH SOLANA LOGO -->
       <div id="insufficientSolFeeBox">
         <div class="insufficient-sol-card">
           <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient SOL for network fees</h5>
           <p id="insufficientSolFeeNotice">You need at least 0.12 SOL to cover the transaction fee. You have 0.0000 SOL.</p>
         </div>
         <button class="btn-topup-sol" onclick="goToSolTopUp()">
-          <i class="fa-solid fa-bolt"></i> Top up SOL to withdraw
+          <div class="solana-mini-badge">
+            <svg viewBox="0 0 100 100">
+              <path d="M 20 28 L 75 28 L 85 38 L 30 38 Z" fill="#14F195" />
+              <path d="M 80 45 L 25 45 L 15 55 L 70 55 Z" fill="#9945FF" />
+              <path d="M 20 62 L 75 62 L 85 72 L 30 72 Z" fill="#14F195" />
+            </svg>
+          </div>
+          <span>Top up SOL to withdraw</span>
         </button>
       </div>
 
+      <!-- BLUE WITHDRAW BUTTON (DIRECT MODE) -->
       <div id="directWithdrawBtnBox" style="display: none;">
         <button class="btn-withdraw-direct" id="directWithdrawButton" onclick="submitWithdraw()">
           Withdraw
@@ -1316,21 +1374,21 @@
     </div>
   </div>
 
-  <!-- MULTI-VIEW TOP-RIGHT WALLET MODAL (Screenshots 1000152354, 1000152353, 1000152352) -->
+  <!-- MULTI-VIEW TOP-RIGHT WALLET MODAL -->
   <div class="modal-overlay" id="modal-wallet-overview">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-wallet-overview')"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- SUBVIEW 1: MAIN WALLET OVERVIEW (1000152354.jpg) -->
+      <!-- SUBVIEW 1: OVERVIEW -->
       <div id="walletViewMain" class="wallet-subview active">
         <h3 class="modal-title" style="margin-bottom: 15px;">Wallet</h3>
 
         <div class="wallet-modal-user">
           <div class="user-col">
-            <div class="user-avatar" style="width: 38px; height: 38px; font-size: 15px;">M</div>
+            <div class="user-avatar" style="width: 38px; height: 38px; font-size: 15px;">L</div>
             <div>
-              <h5 style="font-size: 14px; font-weight: 800;">Miner</h5>
-              <span style="font-size: 10.5px; color: var(--text-gray); font-family: monospace;">ID -</span>
+              <h5 style="font-size: 14px; font-weight: 800;">Love Bhullar</h5>
+              <span style="font-size: 10.5px; color: var(--text-gray); font-family: monospace;">ID 7982111846</span>
             </div>
           </div>
           <span class="active-pill">• Active</span>
@@ -1376,7 +1434,7 @@
         </div>
       </div>
 
-      <!-- SUBVIEW 2: SOLANA WITHDRAW (1000152352.jpg) -->
+      <!-- SUBVIEW 2: SOLANA WITHDRAW -->
       <div id="walletViewWithdraw" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1384,7 +1442,7 @@
         </div>
 
         <div class="withdraw-balance-card" style="margin-bottom: 16px;">
-          <div class="mini-icon" style="background: linear-gradient(135deg, #14F195, #9945FF); border:none;">
+          <div class="mini-icon-box" style="background: linear-gradient(135deg, #14F195, #9945FF); border:none;">
             <i class="fa-solid fa-bolt" style="color: #000; font-size: 15px;"></i>
           </div>
           <div>
@@ -1400,11 +1458,11 @@
 
         <label class="field-label">AMOUNT</label>
         <div class="amount-input-box">
-          <div class="left">
-            <i class="fa-solid fa-bolt" style="color: #14F195; font-size: 11px;"></i>
-            <span>SOL</span>
+          <div class="left-token">
+            <i class="fa-solid fa-bolt" style="color: #14F195; font-size: 12px;"></i>
+            <span style="color:#fff;">SOL</span>
           </div>
-          <div class="right">
+          <div class="right-inputs">
             <input type="number" placeholder="0.00" value="0.00">
             <button class="max-btn">MAX</button>
           </div>
@@ -1417,7 +1475,7 @@
         <p style="text-align: center; font-size: 11px; color: var(--text-gray);">Minimum withdrawal 0.1 SOL.</p>
       </div>
 
-      <!-- SUBVIEW 3: HISTORY (1000152353.jpg) -->
+      <!-- SUBVIEW 3: HISTORY -->
       <div id="walletViewHistory" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1649,13 +1707,10 @@
       if (userState.userWallet && !userState.userWallet.includes("http")) {
         const short = userState.userWallet.substring(0, 6) + "..." + userState.userWallet.slice(-4);
         document.getElementById("userWalletShort").innerText = short;
-        document.getElementById("withdrawDestinationInput").value = userState.userWallet;
       } else {
         document.getElementById("userWalletShort").innerText = "Not connected";
-        document.getElementById("withdrawDestinationInput").value = "";
       }
 
-      // Daily UI State
       updateDailyUI();
     }
 
@@ -1692,7 +1747,7 @@
       }
     }, 3000);
 
-    /* DAILY REWARDS FLOW (Screenshots 1000152358.jpg & 1000152357.jpg) */
+    /* DAILY REWARDS FLOW */
     function openDailyRewardsModal() {
       updateDailyUI();
       openModal("modal-daily");
@@ -1703,13 +1758,11 @@
       const bottomBtn = document.getElementById("btnDailyBottom");
 
       if (userState.isDailyClaimed) {
-        // Screenshot 1000152358.jpg
         badgeContainer.innerHTML = `<span class="d-claimed-tick"><i class="fa-solid fa-check"></i></span>`;
         bottomBtn.className = "btn-daily-bottom-action disabled";
         bottomBtn.innerText = "Come back tomorrow";
         bottomBtn.onclick = null;
       } else {
-        // Screenshot 1000152357.jpg
         badgeContainer.innerHTML = `<span class="d-claim-pill" onclick="claimDailyDay(1)">Claim</span>`;
         bottomBtn.className = "btn-daily-bottom-action";
         bottomBtn.innerText = "Claim Day 1 Reward";
@@ -1737,6 +1790,7 @@
       }
 
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
+      document.getElementById("withdrawDestinationInput").value = ""; // Always empty
       document.getElementById("withdrawAmountInput").value = "10";
       calculateWithdrawUsd();
 
