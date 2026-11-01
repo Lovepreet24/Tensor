@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Tensor Coin Mini App</title>
+  <title>Tensor Mining</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -11,16 +11,15 @@
 
   <style>
     :root {
-      --bg-dark: #080b11;
-      --card-bg: #141724;
-      --card-border: #1f2338;
+      --bg-dark: #0a0d14;
+      --card-dark: #121622;
+      --card-border: #1d2334;
       --accent-yellow: #f5a623;
-      --accent-yellow-hover: #d48b16;
-      --accent-cyan: #00e5ff;
       --accent-green: #00e676;
-      --accent-blue: #0099ff;
+      --accent-sol: #9945FF;
+      --accent-cyan: #14F195;
       --text-white: #ffffff;
-      --text-gray: #8e95a5;
+      --text-gray: #7d8799;
     }
 
     * {
@@ -39,24 +38,24 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      padding-bottom: 75px;
+      padding-bottom: 78px;
     }
 
-    /* Floating Toast Notification */
+    /* Toast Notification */
     .toast-notice {
       position: fixed;
       top: 15px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: #191c2b;
-      border: 1px solid var(--accent-cyan);
+      background: #151a29;
+      border: 1px solid #2a334d;
       color: #fff;
       padding: 12px 22px;
       border-radius: 25px;
       font-size: 13px;
       font-weight: 700;
-      z-index: 2000;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      z-index: 5000;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
       align-items: center;
@@ -66,6 +65,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Top Bar */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -75,23 +75,25 @@
     .top-bar-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-size: 19px;
-      font-weight: 700;
+      font-weight: 800;
     }
+    .top-bar-left i { font-size: 16px; cursor: pointer; color: #a4adc1; }
     .top-bar-right {
       display: flex;
       align-items: center;
       gap: 14px;
-      color: var(--text-gray);
+      color: #a4adc1;
       font-size: 16px;
     }
 
+    /* User Profile Bar */
     .header-user-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 18px;
+      padding: 6px 18px 12px;
     }
     .user-profile-chip {
       display: flex;
@@ -102,17 +104,18 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #e6c594;
+      background: #dfc299;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #3d2b1f;
+      color: #382817;
       font-size: 18px;
       font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.2);
     }
     .user-details h4 {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 14.5px;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -123,21 +126,23 @@
       font-size: 9px;
       padding: 2px 6px;
       border-radius: 6px;
-      text-decoration: none;
-      font-weight: 800;
+      font-weight: 900;
+      cursor: pointer;
     }
     .user-details p {
       font-size: 10.5px;
       color: var(--accent-yellow);
       margin-top: 1px;
+      font-weight: 600;
     }
     .user-details span {
       font-size: 10.5px;
       color: var(--text-gray);
     }
-    .wallet-chip-top {
-      background: #141727;
-      border: 1px solid #232742;
+
+    .sol-wallet-top {
+      background: #141724;
+      border: 1px solid #23293d;
       border-radius: 20px;
       padding: 6px 12px;
       display: flex;
@@ -145,39 +150,58 @@
       gap: 8px;
       cursor: pointer;
     }
-    .wallet-chip-top i.fa-ethereum {
-      color: #627eea;
-      font-size: 14px;
+    .sol-wallet-top .sol-icon-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #14F195 0%, #9945FF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #000;
     }
-    .wallet-chip-top .val {
-      font-size: 12px;
+    .sol-wallet-top .sol-label-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .sol-wallet-top .sol-label-col span {
+      font-size: 8.5px;
+      color: var(--text-gray);
+      text-transform: uppercase;
       font-weight: 700;
     }
+    .sol-wallet-top .sol-label-col strong {
+      font-size: 11.5px;
+      font-weight: 800;
+    }
 
+    /* Balance Hero Box */
     .balance-box {
       text-align: center;
-      margin: 15px 0 10px;
+      margin: 12px 0 10px;
     }
     .balance-box h1 {
       font-size: 34px;
-      font-weight: 800;
+      font-weight: 900;
     }
     .balance-box h1 span {
       color: var(--accent-yellow);
     }
     .balance-box .fiat {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--accent-green);
-      font-weight: 600;
+      font-weight: 700;
       margin-top: 2px;
     }
 
+    /* Daily reward button */
     .daily-reward-btn {
-      width: 60px;
-      height: 60px;
+      width: 58px;
+      height: 58px;
       margin-left: 18px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: #141724;
+      border: 1px solid #23293d;
       border-radius: 14px;
       display: flex;
       flex-direction: column;
@@ -186,17 +210,10 @@
       gap: 3px;
       cursor: pointer;
     }
-    .daily-reward-btn i {
-      color: #ff4757;
-      font-size: 20px;
-    }
-    .daily-reward-btn span {
-      font-size: 9.5px;
-      color: var(--text-gray);
-      text-align: center;
-      line-height: 1.1;
-    }
+    .daily-reward-btn i { color: #ff4757; font-size: 20px; }
+    .daily-reward-btn span { font-size: 9.5px; color: var(--text-gray); text-align: center; line-height: 1.1; }
 
+    /* Exact Original Center Logo Coin */
     .coin-container {
       display: flex;
       justify-content: center;
@@ -208,9 +225,9 @@
       width: 250px;
       height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle, #0e1e24 0%, #080d12 70%);
-      box-shadow: 0 0 35px rgba(0, 229, 255, 0.25), inset 0 0 15px rgba(0, 229, 255, 0.4);
-      border: 4px solid #133a42;
+      background: #000000;
+      box-shadow: 0 0 50px rgba(245, 166, 35, 0.28), 0 0 20px rgba(0,0,0,0.9);
+      border: 3px solid #211c14;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -218,21 +235,13 @@
       transition: transform 0.08s ease;
       touch-action: manipulation;
     }
-    .coin-outer-circle:active {
-      transform: scale(0.96);
-    }
-    .coin-inner-design {
-      width: 215px;
-      height: 215px;
-      border-radius: 50%;
-      background: #00d2d3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .coin-inner-design i {
-      font-size: 105px;
-      color: #ffffff;
+    .coin-outer-circle:active { transform: scale(0.96); }
+    
+    /* Exact Tensor Arrow SVG */
+    .tensor-logo-svg {
+      width: 120px;
+      height: 120px;
+      fill: #ffffff;
     }
 
     .tap-action-row {
@@ -241,8 +250,8 @@
       margin-bottom: 20px;
     }
     .tap-to-mine-chip {
-      background: #171a2b;
-      border: 1px solid #282d47;
+      background: #151928;
+      border: 1px solid #283049;
       border-radius: 20px;
       padding: 8px 24px;
       font-size: 13px;
@@ -252,18 +261,20 @@
       align-items: center;
       gap: 8px;
     }
+
     .stats-row {
       display: flex;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 18px;
+      margin-bottom: 15px;
     }
     .stat-pill {
-      background: #131627;
-      border: 1px solid #232742;
-      border-radius: 22px;
+      background: #141724;
+      border: 1px solid #23293d;
+      border-radius: 20px;
       padding: 10px 22px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -271,11 +282,42 @@
     .stat-pill.energy i { color: var(--accent-yellow); }
     .stat-pill.timer i { color: var(--accent-cyan); }
 
+    /* Tap Connect Wallet Card on Tap Tab */
+    .tap-connect-wallet-strip {
+      background: #141724;
+      border: 1px solid #23293d;
+      border-radius: 16px;
+      margin: 0 18px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .tap-connect-wallet-strip .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tap-connect-wallet-strip .left i {
+      font-size: 22px;
+      color: #ff6b81;
+    }
+    .tap-connect-wallet-strip .left h5 {
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .tap-connect-wallet-strip .left p {
+      font-size: 10.5px;
+      color: var(--text-gray);
+      margin-top: 2px;
+    }
+
     .tap-float {
       position: absolute;
       color: #ffffff;
       font-size: 22px;
-      font-weight: 800;
+      font-weight: 900;
       pointer-events: none;
       animation: floatUp 0.8s ease-out forwards;
       z-index: 100;
@@ -285,102 +327,199 @@
       100% { opacity: 0; transform: translateY(-70px); }
     }
 
-    .content-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 18px;
-      margin: 12px 18px;
+    /* TASKS PAGE STYLES */
+    .task-page-container {
+      padding: 10px 18px;
     }
-
-    .btn-yellow {
-      width: 100%;
-      background: var(--accent-yellow);
-      color: #000;
-      font-size: 15px;
-      font-weight: 800;
-      border: none;
-      border-radius: 12px;
-      padding: 14px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
+    .tasks-header-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 15px 0 25px;
     }
-
-    .task-row {
+    .task-card-item {
+      background: #101420;
+      border: 1px solid #1a2135;
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid #1a1e33;
+      margin-bottom: 14px;
     }
-    .task-row:last-child { border-bottom: none; }
-    .task-info { display: flex; align-items: center; gap: 12px; }
-    .task-icon {
+    .task-card-item.completed {
+      background: #0f1d1c;
+      border-color: #173b31;
+    }
+    .task-card-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .task-round-icon {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #1e243d;
+      background: #178fe5;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--accent-cyan);
-      font-size: 18px;
+      font-size: 20px;
+      color: #fff;
     }
-    .task-desc h5 { font-size: 14px; font-weight: 600; }
-    .task-desc .reward { font-size: 11.5px; color: var(--accent-yellow); margin-top: 3px; }
-    .btn-task {
-      padding: 7px 18px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
+    .task-round-icon.twitter-icon {
+      background: #000000;
+      border: 1px solid #293046;
+    }
+    .task-card-info h5 {
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .task-card-info span.username {
+      font-size: 11px;
+      color: var(--text-gray);
+      display: block;
+      margin-top: 1px;
+    }
+    .task-reward-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    .reward-pill {
+      font-size: 11.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .reward-pill.tensor { color: #3b82f6; }
+    .reward-pill.sol { color: #c084fc; }
+
+    .btn-task-action {
+      background: #ffffff;
+      color: #000000;
+      font-size: 13.5px;
+      font-weight: 800;
       border: none;
+      border-radius: 20px;
+      padding: 8px 24px;
       cursor: pointer;
     }
-    .btn-start { background: #ffffff; color: #000000; }
-    .btn-done { background: var(--accent-green); color: #000000; }
+    .btn-task-action.claim {
+      background: #00e676;
+      color: #000000;
+    }
+    .btn-task-action.done {
+      background: #00e676;
+      color: #000000;
+    }
 
-    .wallet-item {
+    /* WALLET SCREEN STYLES */
+    .wallet-hero-box {
+      background: #141724;
+      border: 1px solid #23293d;
+      border-radius: 20px;
+      padding: 24px 18px;
+      margin: 15px 18px 20px;
+      text-align: center;
+    }
+    .wallet-hero-box .label {
+      font-size: 11px;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .wallet-hero-box h1 {
+      font-size: 34px;
+      font-weight: 900;
+      margin: 6px 0 2px;
+    }
+    .wallet-hero-box h1 span { color: var(--accent-yellow); }
+    .wallet-hero-box .fiat {
+      font-size: 13px;
+      color: var(--accent-green);
+      font-weight: 700;
+    }
+
+    .btn-wallet-withdraw-big {
+      width: calc(100% - 36px);
+      margin: 0 18px 24px;
+      background: var(--accent-yellow);
+      color: #000000;
+      font-size: 15px;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .wallet-list-heading {
+      font-size: 12px;
+      color: var(--text-gray);
+      padding: 0 18px;
+      margin-bottom: 12px;
+    }
+
+    .wallet-exchange-card {
+      background: #121522;
+      border: 1px solid #1f2538;
+      border-radius: 16px;
+      margin: 0 18px 12px;
+      padding: 16px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #111322;
-      border: 1px solid #1e2238;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 10px;
     }
-    .wallet-brand { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
-    .wallet-status { font-size: 12px; font-weight: 700; color: var(--accent-yellow); cursor: pointer; }
+    .wallet-exchange-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14.5px;
+      font-weight: 800;
+    }
+    .wallet-exchange-card span.status-btn {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--accent-yellow);
+      cursor: pointer;
+    }
 
+    /* Bottom Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 68px;
-      background: #0d101a;
-      border-top: 1px solid #1c2033;
+      height: 72px;
+      background: #0c0f18;
+      border-top: 1px solid #1c2235;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      z-index: 500;
+      z-index: 1000;
     }
     .nav-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       color: var(--text-gray);
       background: none;
       border: none;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
-    .nav-btn i { font-size: 18px; }
+    .nav-btn i { font-size: 19px; }
     .nav-btn.active { color: var(--accent-yellow); }
 
     .app-screen { display: none; }
@@ -390,20 +529,20 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: flex-end;
       justify-content: center;
-      z-index: 1000;
+      z-index: 2000;
     }
     .modal-sheet {
-      background: #101320;
-      border: 1px solid #1f2338;
-      border-radius: 24px 24px 0 0;
+      background: #111422;
+      border: 1px solid #23293d;
+      border-radius: 28px 28px 0 0;
       width: 100%;
       max-width: 500px;
-      padding: 22px;
+      padding: 24px 20px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
@@ -412,7 +551,7 @@
       position: absolute;
       top: 18px;
       right: 18px;
-      background: #1c2035;
+      background: #1c2235;
       border: none;
       color: var(--text-gray);
       width: 34px;
@@ -424,21 +563,21 @@
       cursor: pointer;
       font-size: 14px;
     }
-    .modal-title { font-size: 19px; font-weight: 800; margin-bottom: 20px; }
+    .modal-title { font-size: 19px; font-weight: 900; margin-bottom: 20px; }
 
     .field-label {
       font-size: 11px;
       letter-spacing: 0.5px;
-      color: #6d758d;
-      font-weight: 700;
+      color: #647087;
+      font-weight: 800;
       text-transform: uppercase;
       margin-bottom: 8px;
       display: block;
     }
 
     .withdraw-balance-card {
-      background: #141829;
-      border: 1px solid #20263f;
+      background: #151928;
+      border: 1px solid #232b42;
       border-radius: 16px;
       padding: 16px 18px;
       display: flex;
@@ -446,101 +585,43 @@
       gap: 14px;
       margin-bottom: 18px;
     }
-    .token-circle-icon {
+    .withdraw-balance-card .mini-icon {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #00d2d3;
+      background: #000;
+      border: 1px solid #2b354f;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .withdraw-balance-card .val {
+      font-size: 20px;
+      font-weight: 900;
       color: #fff;
-      font-size: 20px;
     }
-    .withdraw-balance-card .balance-info-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .withdraw-balance-card .balance-title {
-      font-size: 11px;
-      color: #727b93;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    .withdraw-balance-card .balance-value {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-    .withdraw-balance-card .balance-value span {
-      color: var(--accent-yellow);
-    }
+    .withdraw-balance-card .val span { color: var(--accent-yellow); }
 
-    .address-input-box {
-      background: #141829;
-      border: 1px solid #20263f;
+    .input-address-box {
+      background: #151928;
+      border: 1px solid #232b42;
       border-radius: 14px;
       padding: 14px 16px;
       margin-bottom: 18px;
     }
-    .address-input-box input {
+    .input-address-box input {
       width: 100%;
       background: transparent;
       border: none;
       outline: none;
-      color: #ffffff;
+      color: #fff;
       font-family: monospace;
-      font-size: 13.5px;
-      letter-spacing: 0.3px;
+      font-size: 13px;
     }
 
-    .connected-wallet-card {
-      background: #141829;
-      border: 1px solid #00e676;
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .connected-wallet-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .wallet-avatar-shield {
-      width: 36px;
-      height: 36px;
-      background: #0052ff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-size: 17px;
-    }
-    .connected-wallet-left .name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-    .connected-wallet-left .addr {
-      font-size: 11.5px;
-      color: #737c95;
-      font-family: monospace;
-      margin-top: 1px;
-    }
-    .check-icon-green {
-      color: #00e676;
-      font-size: 16px;
-    }
-
-    .amount-input-container {
-      background: #141829;
-      border: 1px solid #20263f;
+    .amount-input-box {
+      background: #151928;
+      border: 1px solid #232b42;
       border-radius: 14px;
       padding: 12px 16px;
       display: flex;
@@ -548,85 +629,70 @@
       justify-content: space-between;
       margin-bottom: 6px;
     }
-    .amount-left-unit {
+    .amount-input-box .left {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    .amount-left-unit .mini-token {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #00d2d3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 10px;
-    }
-    .amount-left-unit span {
       font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
+      font-weight: 800;
     }
-    .amount-right-input {
+    .amount-input-box .right {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .amount-right-input input {
+    .amount-input-box .right input {
       background: transparent;
       border: none;
       outline: none;
-      color: #ffffff;
-      font-size: 19px;
+      color: #fff;
+      font-size: 18px;
       font-weight: 800;
       text-align: right;
-      width: 110px;
+      width: 100px;
     }
-    .max-badge-btn {
-      background: #2a2517;
+    .amount-input-box .max-btn {
+      background: #252014;
       color: var(--accent-yellow);
-      border: 1px solid #5a4515;
+      border: 1px solid #574415;
       border-radius: 8px;
-      padding: 5px 10px;
+      padding: 4px 8px;
       font-size: 11px;
       font-weight: 800;
       cursor: pointer;
     }
 
-    .amount-fiat-green {
+    .fiat-amount-green {
       text-align: right;
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12.5px;
+      font-weight: 800;
       color: var(--accent-green);
       margin-bottom: 20px;
     }
 
-    /* Red Warning Card */
-    .insufficient-fee-card {
-      background: #231117;
-      border: 1px solid #5c1e28;
+    .insufficient-sol-card {
+      background: #231218;
+      border: 1px solid #571e29;
       border-radius: 14px;
       padding: 14px 16px;
       margin-bottom: 18px;
     }
-    .insufficient-fee-card h5 {
+    .insufficient-sol-card h5 {
       color: #ff5263;
       font-size: 13.5px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 5px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .insufficient-fee-card p {
-      color: #a7888f;
+    .insufficient-sol-card p {
+      color: #a3888f;
       font-size: 12px;
       line-height: 1.4;
     }
 
-    .btn-topup-green {
+    .btn-topup-sol {
       width: 100%;
       background: #00c853;
       color: #ffffff;
@@ -640,13 +706,11 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.2s;
     }
-    .btn-topup-green:hover { background: #00e676; }
 
-    .btn-withdraw-blue {
+    .btn-withdraw-direct {
       width: 100%;
-      background: #0091ff;
+      background: #1d72b8;
       color: #ffffff;
       font-size: 15px;
       font-weight: 800;
@@ -654,42 +718,33 @@
       border-radius: 14px;
       padding: 15px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
     }
 
-    .streak-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 18px 0;
-    }
-    .streak-item {
-      background: #161a2e;
-      border: 1px solid #242947;
-      border-radius: 12px;
-      padding: 10px 4px;
-      text-align: center;
-    }
-    .streak-item.active { border-color: var(--accent-yellow); }
-    .streak-item h6 { font-size: 10px; color: var(--text-gray); }
-    .streak-item .amount { font-size: 11.5px; font-weight: 700; color: var(--accent-cyan); margin: 4px 0; }
-    .btn-claim-streak {
-      background: var(--accent-yellow);
-      border: none;
-      padding: 3px 8px;
-      border-radius: 10px;
-      font-size: 9px;
+    /* In-App Admin Settings */
+    .admin-input-group { margin-bottom: 14px; }
+    .admin-input-group label {
+      display: block;
+      font-size: 11px;
       font-weight: 800;
-      cursor: pointer;
+      color: var(--accent-cyan);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    .admin-input-group input, .admin-input-group select {
+      width: 100%;
+      background: #141724;
+      border: 1px solid #23293d;
+      padding: 12px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
     }
 
     .qr-card {
       background: #ffffff;
       padding: 16px;
-      border-radius: 16px;
+      border-radius: 20px;
       width: 200px;
       height: 200px;
       margin: 15px auto;
@@ -699,31 +754,22 @@
     }
     .qr-card img { width: 100%; height: 100%; }
     .address-pill {
-      background: #0b0d17;
-      border: 1px solid #1e2238;
-      border-radius: 10px;
+      background: #0c0f18;
+      border: 1px solid #1f2538;
+      border-radius: 12px;
       padding: 12px;
       font-size: 11px;
       font-family: monospace;
       color: var(--text-gray);
       word-break: break-all;
-      margin-bottom: 14px;
+      margin-bottom: 15px;
       text-align: center;
-    }
-    .info-alert {
-      background: #181912;
-      border: 1px solid #3d3416;
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 11.5px;
-      color: var(--accent-yellow);
-      margin-top: 12px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Toast Notification -->
+  <!-- Toast Notification -->
   <div id="toastNotification" class="toast-notice">
     <i class="fa-solid fa-circle-check" style="color: var(--accent-green);"></i>
     <span id="toastMessage">Notification</span>
@@ -733,7 +779,7 @@
   <div class="top-bar">
     <div class="top-bar-left">
       <i class="fa-solid fa-xmark" onclick="closeApp()"></i>
-      <span id="appHeaderTitle">Tensor Coin</span>
+      <span>Tensor Mining</span>
     </div>
     <div class="top-bar-right">
       <i class="fa-solid fa-chevron-down"></i>
@@ -744,25 +790,29 @@
   <!-- User Profile Header -->
   <div class="header-user-card">
     <div class="user-profile-chip">
-      <div class="user-avatar" id="userAvatarText">U</div>
+      <div class="user-avatar" id="userAvatarText">L</div>
       <div class="user-details">
-        <h4 id="userNameDisplay">[ Loading... ]</h4>
+        <h4 id="userNameDisplay">[ Love Bhullar ]</h4>
         <p>Mine · Earn · Grow</p>
-        <span id="userAccountDisplay">Account number: ...</span>
+        <span id="userAccountDisplay">Account number: 7982111846</span>
       </div>
     </div>
-    <div class="wallet-chip-top" onclick="switchTab('wallet')">
-      <i class="fa-brands fa-ethereum"></i>
-      <div class="val" id="topEthBalance">0.0001 ETH</div>
+    <!-- Top Right SOL Wallet Pill -->
+    <div class="sol-wallet-top" onclick="switchTab('wallet')">
+      <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
+      <div class="sol-label-col">
+        <span>WALLET</span>
+        <strong id="topSolBalance">0.0000 SOL</strong>
+      </div>
       <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
     </div>
   </div>
 
-  <!-- TAB 1: TAP TO MINE -->
+  <!-- TAB 1: TAP SCREEN -->
   <div id="screen-tap" class="app-screen active">
     <div class="balance-box">
-      <h1><span id="mainTnsrBalance">20.63</span> TNSR</h1>
-      <div class="fiat" id="mainUsdValue">≈ $73.24 USD</div>
+      <h1><span id="mainTnsrBalance">718.00</span> TENSOR</h1>
+      <div class="fiat" id="mainUsdValue">≈ $28.15 USD</div>
     </div>
 
     <div class="daily-reward-btn" onclick="openModal('modal-daily')">
@@ -770,11 +820,12 @@
       <span>Daily<br>Rewards</span>
     </div>
 
+    <!-- Tensor Center Coin with Exact Vector Arrow -->
     <div class="coin-container">
       <div class="coin-outer-circle" id="coinTapBtn" onclick="handleCoinTap(event)">
-        <div class="coin-inner-design">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
+        <svg class="tensor-logo-svg" viewBox="0 0 100 100">
+          <path d="M 50 15 L 20 48 L 38 48 L 38 85 L 48 85 L 48 48 L 50 48 L 52 48 L 52 85 L 62 85 L 62 48 L 80 48 Z" />
+        </svg>
       </div>
     </div>
 
@@ -787,149 +838,247 @@
     <div class="stats-row">
       <div class="stat-pill energy">
         <i class="fa-solid fa-bolt"></i>
-        <span id="energyDisplay">1000/1000</span>
+        <span id="energyDisplay">996/1000</span>
       </div>
       <div class="stat-pill timer">
         <i class="fa-regular fa-hourglass-half"></i>
-        <span id="timerDisplay">08:59:49</span>
+        <span id="timerDisplay">08:58:44</span>
       </div>
+    </div>
+
+    <!-- Connect Wallet Strip at bottom of Tap Tab -->
+    <div class="tap-connect-wallet-strip" onclick="openConnectModal('Trust Wallet')">
+      <div class="left">
+        <i class="fa-solid fa-wallet"></i>
+        <div>
+          <h5>Connect Wallet</h5>
+          <p>Connect to save your progress and receive rewards</p>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-right" style="font-size: 12px; color: var(--text-gray);"></i>
     </div>
   </div>
 
-  <!-- TAB 2: TASKS -->
+  <!-- TAB 2: TASKS SCREEN (Exact 6 Tasks Replica) -->
   <div id="screen-task" class="app-screen">
-    <div class="balance-box">
-      <h2>TASKS</h2>
-      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Complete tasks to earn TNSR & ETH instantly.</p>
-    </div>
+    <div class="task-page-container">
+      <h1 class="tasks-header-title">TASKS</h1>
 
-    <div class="content-box">
-      <div class="task-row">
-        <div class="task-info">
-          <div class="task-icon"><i class="fa-brands fa-telegram"></i></div>
-          <div class="task-desc">
-            <h5 id="task1Title">Join Telegram Channel</h5>
-            <div class="reward">+1 TNSR &nbsp; +0.0002 ETH</div>
+      <!-- Task 1 -->
+      <div class="task-card-item completed" id="taskCard1">
+        <div class="task-card-left">
+          <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
+          <div class="task-card-info">
+            <h5>Join Telegram Channel</h5>
+            <span class="username">@TensorCoinNews</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +100</span>
+              <span class="reward-pill sol"><i class="fa-solid fa-bolt"></i> +0.005</span>
+            </div>
           </div>
         </div>
-        <button id="task1Btn" class="btn-task btn-start" onclick="handleTaskClick(1)">Start</button>
+        <button class="btn-task-action done" id="task1Btn">✓ Done</button>
       </div>
 
-      <div class="task-row">
-        <div class="task-info">
-          <div class="task-icon"><i class="fa-brands fa-telegram"></i></div>
-          <div class="task-desc">
-            <h5 id="task2Title">Join Telegram Folder</h5>
-            <div class="reward">+1 TNSR &nbsp; +0.0001 ETH</div>
+      <!-- Task 2 -->
+      <div class="task-card-item" id="taskCard2">
+        <div class="task-card-left">
+          <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
+          <div class="task-card-info">
+            <h5>Join Telegram Group</h5>
+            <span class="username">@TensorChatGroup</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +100</span>
+              <span class="reward-pill sol"><i class="fa-solid fa-bolt"></i> +0.002</span>
+            </div>
           </div>
         </div>
-        <button id="task2Btn" class="btn-task btn-start" onclick="handleTaskClick(2)">Start</button>
+        <button class="btn-task-action" id="task2Btn" onclick="handleTaskClick(2)">Start</button>
       </div>
 
-      <div class="task-row">
-        <div class="task-info">
-          <div class="task-icon"><i class="fa-brands fa-x-twitter"></i></div>
-          <div class="task-desc">
-            <h5 id="task3Title">Follow Twitter / X</h5>
-            <div class="reward">+1 TNSR &nbsp; +0.0001 ETH</div>
+      <!-- Task 3 -->
+      <div class="task-card-item" id="taskCard3">
+        <div class="task-card-left">
+          <div class="task-round-icon twitter-icon"><i class="fa-brands fa-x-twitter"></i></div>
+          <div class="task-card-info">
+            <h5>Follow Twitter Page</h5>
+            <span class="username">@tensor_hq</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +75</span>
+              <span class="reward-pill sol"><i class="fa-solid fa-bolt"></i> +0.002</span>
+            </div>
           </div>
         </div>
-        <button id="task3Btn" class="btn-task btn-start" onclick="handleTaskClick(3)">Start</button>
+        <button class="btn-task-action" id="task3Btn" onclick="handleTaskClick(3)">Start</button>
       </div>
+
+      <!-- Task 4 -->
+      <div class="task-card-item" id="taskCard4">
+        <div class="task-card-left">
+          <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
+          <div class="task-card-info">
+            <h5>Join our Telegram Folder</h5>
+            <span class="username">Telegram Folder</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +50</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-task-action" id="task4Btn" onclick="handleTaskClick(4)">Start</button>
+      </div>
+
+      <!-- Task 5 -->
+      <div class="task-card-item" id="taskCard5">
+        <div class="task-card-left">
+          <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
+          <div class="task-card-info">
+            <h5>Join EarnCraft News</h5>
+            <span class="username">@EarnCraftNews</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +50</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-task-action" id="task5Btn" onclick="handleTaskClick(5)">Start</button>
+      </div>
+
+      <!-- Task 6 -->
+      <div class="task-card-item" id="taskCard6">
+        <div class="task-card-left">
+          <div class="task-round-icon"><i class="fa-brands fa-telegram"></i></div>
+          <div class="task-card-info">
+            <h5>Join for Crypto Updates</h5>
+            <span class="username">@LeonovZ</span>
+            <div class="task-reward-pills">
+              <span class="reward-pill tensor"><i class="fa-solid fa-circle"></i> +0.5</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-task-action" id="task6Btn" onclick="handleTaskClick(6)">Start</button>
+      </div>
+
+      <p style="text-align: center; font-size: 11px; color: var(--text-gray); margin: 20px 0;">Complete tasks to earn TENSOR & SOL. Rewards are credited automatically.</p>
     </div>
   </div>
 
-  <!-- TAB 3: REFERRAL -->
+  <!-- TAB 3: REFERRAL SCREEN -->
   <div id="screen-refer" class="app-screen">
     <div class="balance-box">
       <h2>INVITE FRIENDS</h2>
-      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Share your link and earn bonuses together!</p>
+      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Share your link and earn 10% referral bonuses.</p>
     </div>
-
-    <div class="content-box">
+    <div style="background: #141724; border: 1px solid #23293d; border-radius: 16px; padding: 20px; margin: 18px;">
       <h4 style="margin-bottom: 8px;">Your Unique Invite Link</h4>
       <div class="address-pill" id="referralLinkText">Loading link...</div>
-      <button class="btn-yellow" onclick="copyRefLink()"><i class="fa-regular fa-copy"></i> Copy Link</button>
+      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 0;" onclick="copyRefLink()"><i class="fa-regular fa-copy"></i> Copy Link</button>
     </div>
   </div>
 
-  <!-- TAB 4: WALLET -->
+  <!-- TAB 4: WALLET SCREEN (Exact Replica) -->
   <div id="screen-wallet" class="app-screen">
+    <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 5px;">WALLET</h3>
+
+    <div class="wallet-hero-box">
+      <div class="label">TOTAL BALANCE</div>
+      <h1><span id="walletTnsrDisplay">718.00</span> TENSOR</h1>
+      <div class="fiat" id="walletUsdDisplay">≈ $28.15 USD</div>
+    </div>
+
+    <button class="btn-wallet-withdraw-big" onclick="openWithdrawModal()">
+      <i class="fa-solid fa-arrow-up"></i> Withdraw TENSOR
+    </button>
+
+    <div class="wallet-list-heading">Your wallets</div>
+
+    <!-- 5 Wallets from Screenshots -->
+    <div class="wallet-exchange-card">
+      <div class="wallet-exchange-left">
+        <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 24px;"></i>
+        <div>
+          <div>Trust Wallet</div>
+          <div style="font-size: 10.5px; color: var(--text-gray); font-family: monospace;" id="userWalletShort">Not connected</div>
+        </div>
+      </div>
+      <span class="status-btn" onclick="openConnectModal('Trust Wallet')">Connect →</span>
+    </div>
+
+    <div class="wallet-exchange-card">
+      <div class="wallet-exchange-left">
+        <i class="fa-solid fa-cubes" style="color: #f3ba2f; font-size: 24px;"></i>
+        <div>Binance</div>
+      </div>
+      <span class="status-btn" onclick="openConnectModal('Binance')">Connect →</span>
+    </div>
+
+    <div class="wallet-exchange-card">
+      <div class="wallet-exchange-left">
+        <i class="fa-solid fa-xmark" style="color: #2b6cb0; font-size: 24px;"></i>
+        <div>BingX</div>
+      </div>
+      <span class="status-btn" onclick="openConnectModal('BingX')">Connect →</span>
+    </div>
+
+    <div class="wallet-exchange-card">
+      <div class="wallet-exchange-left">
+        <i class="fa-solid fa-circle-dot" style="color: #f7a600; font-size: 24px;"></i>
+        <div>Bybit</div>
+      </div>
+      <span class="status-btn" onclick="openConnectModal('Bybit')">Connect →</span>
+    </div>
+
+    <div class="wallet-exchange-card">
+      <div class="wallet-exchange-left">
+        <i class="fa-solid fa-m" style="color: #0070ba; font-size: 22px;"></i>
+        <div>MEXC</div>
+      </div>
+      <span class="status-btn" onclick="openConnectModal('MEXC')">Connect →</span>
+    </div>
+
+    <p style="text-align: center; font-size: 11px; color: var(--text-gray); margin: 20px 18px;">Connect your wallets now so withdrawals are ready when Tensor goes live.</p>
+  </div>
+
+  <!-- TAB 5: IN-APP ADMIN SUITE (Exclusive to 7982111846) -->
+  <div id="screen-admin" class="app-screen">
     <div class="balance-box">
-      <div style="font-size: 11px; color: var(--text-gray); text-transform: uppercase;">Total Balance</div>
-      <h1 style="margin-top: 4px;"><span id="walletTnsrDisplay">20.63</span> TNSR</h1>
-      <div class="fiat" id="walletUsdDisplay">≈ $73.24 USD</div>
+      <h2 style="font-size: 20px; font-weight: 900; color: var(--accent-yellow);"><i class="fa-solid fa-sliders"></i> Master Admin Suite</h2>
+      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Exclusive live control for ID: <strong>7982111846</strong></p>
     </div>
 
-    <div style="padding: 0 18px; margin-bottom: 16px;">
-      <button class="btn-yellow" onclick="openWithdrawModal()">
-        <i class="fa-solid fa-arrow-up"></i> Withdraw TNSR
-      </button>
-    </div>
-
-    <div class="content-box" style="margin-top: 0;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <span style="font-size: 13px; font-weight: 700;">Assets</span>
-        <span style="font-size: 12px; color: var(--text-gray);">Balance</span>
+    <div style="background: #141724; border: 1px solid #23293d; border-radius: 16px; padding: 18px; margin: 18px;">
+      <div class="admin-input-group">
+        <label>Withdrawal Phase / Mode</label>
+        <select id="admWithdrawModeInput">
+          <option value="normal_flow">Normal Flow (SOL Fee Deposit First)</option>
+          <option value="started_today">Withdrawal Started Today (Traffic Busy Error)</option>
+          <option value="starts_on">Withdrawal Starts On (Custom Date Notice)</option>
+        </select>
       </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <i class="fa-brands fa-ethereum" style="font-size: 24px; color: #627eea;"></i>
-          <div>
-            <div style="font-size: 13px; font-weight: 700;">ETH</div>
-            <div style="font-size: 10.5px; color: var(--text-gray);" id="walletEthRateText">$2,224.33</div>
-          </div>
+
+      <div class="admin-input-group">
+        <label>Custom Date Notice</label>
+        <input type="text" id="admWithdrawDateNotice" placeholder="e.g. 15 November 2026">
+      </div>
+
+      <div class="admin-input-group">
+        <label>Admin SOL Deposit Address</label>
+        <input type="text" id="admDepositAddressInput" placeholder="Solana wallet address">
+      </div>
+
+      <div class="admin-input-group">
+        <label>Required SOL Network Fee</label>
+        <input type="number" step="0.01" id="admRequiredFeeInput" placeholder="0.12">
+      </div>
+
+      <div class="admin-input-group">
+        <label>Add New Admin Telegram ID</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="admNewAdminInput" placeholder="Telegram User ID">
+          <button style="padding: 10px 14px; background: var(--accent-green); color: #000; font-weight: 800; border: none; border-radius: 8px; cursor: pointer;" onclick="addNewAdminId()">Add</button>
         </div>
-        <div style="text-align: right;">
-          <div style="font-size: 13px; font-weight: 700;" id="assetEthBalance">0.0001</div>
-          <div style="font-size: 10.5px; color: var(--accent-green);">$0.22</div>
-        </div>
       </div>
+      <div style="font-size: 11px; color: var(--text-gray); margin-bottom: 15px;">Admins: <span id="admActiveAdminsList" style="color: #fff;">7982111846</span></div>
 
-      <div style="margin-top: 14px;">
-        <button class="btn-yellow" style="padding: 10px; font-size: 12px;" onclick="openModal('modal-deposit')">
-          <i class="fa-solid fa-arrow-down"></i> Deposit ETH
-        </button>
-      </div>
-    </div>
-
-    <div class="content-box">
-      <h5 style="font-size: 13px; color: var(--text-gray); margin-bottom: 14px;">Connect at least one wallet:</h5>
-
-      <div class="wallet-item">
-        <div class="wallet-brand">
-          <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 20px;"></i>
-          <div>
-            <div>Trust Wallet</div>
-            <div style="font-size: 10.5px; color: var(--text-gray);" id="userWalletShort">0x60c9...8888</div>
-          </div>
-        </div>
-        <span class="wallet-status" onclick="openConnectModal('Trust Wallet')">Edit</span>
-      </div>
-
-      <div class="wallet-item">
-        <div class="wallet-brand">
-          <i class="fa-solid fa-cubes" style="color: #f3ba2f; font-size: 20px;"></i>
-          <div>Binance</div>
-        </div>
-        <span class="wallet-status" onclick="openConnectModal('Binance')">Connect →</span>
-      </div>
-
-      <div class="wallet-item">
-        <div class="wallet-brand">
-          <i class="fa-solid fa-xmark" style="color: #2b6cb0; font-size: 20px;"></i>
-          <div>BingX</div>
-        </div>
-        <span class="wallet-status" onclick="openConnectModal('BingX')">Connect →</span>
-      </div>
-
-      <div class="wallet-item">
-        <div class="wallet-brand">
-          <i class="fa-solid fa-circle-dot" style="color: #f7a600; font-size: 20px;"></i>
-          <div>Bybit</div>
-        </div>
-        <span class="wallet-status" onclick="openConnectModal('Bybit')">Connect →</span>
-      </div>
+      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 10px 0 0;" onclick="saveMasterAdminSettings()">Save Live Changes</button>
     </div>
   </div>
 
@@ -940,171 +1089,142 @@
       <span>Refer</span>
     </button>
     <button class="nav-btn" onclick="switchTab('task')">
-      <i class="fa-solid fa-clipboard-list"></i>
+      <i class="fa-solid fa-clipboard-check"></i>
       <span>Task</span>
     </button>
     <button class="nav-btn active" onclick="switchTab('tap')">
-      <i class="fa-solid fa-hand-pointer"></i>
+      <i class="fa-solid fa-circle-arrow-up"></i>
       <span>Tap</span>
     </button>
     <button class="nav-btn" onclick="switchTab('wallet')">
       <i class="fa-solid fa-wallet"></i>
       <span>Wallet</span>
     </button>
+    <button class="nav-btn" id="navBtnAdmin" style="display: none;" onclick="switchTab('admin')">
+      <i class="fa-solid fa-gears" style="color: var(--accent-yellow);"></i>
+      <span style="color: var(--accent-yellow);">Admin</span>
+    </button>
   </div>
 
-  <!-- MODALS -->
-  <!-- Daily Rewards Modal -->
-  <div class="modal-overlay" id="modal-daily">
-    <div class="modal-sheet">
-      <button class="modal-close-btn" onclick="closeModal('modal-daily')"><i class="fa-solid fa-xmark"></i></button>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-gift" style="color: #ff4757; font-size: 22px;"></i>
-        <div>
-          <h3 style="font-size: 16px;">Daily Rewards</h3>
-          <p style="font-size: 11px; color: var(--text-gray);">Check in daily to claim rewards!</p>
-        </div>
-      </div>
-      <div class="streak-grid">
-        <div class="streak-item active"><h6>Day 1</h6><div class="amount">+0.5 TNSR</div><button class="btn-claim-streak" onclick="claimStreakReward(0.5, this)">Claim</button></div>
-        <div class="streak-item"><h6>Day 2</h6><div class="amount">+0.6 TNSR</div></div>
-        <div class="streak-item"><h6>Day 3</h6><div class="amount">+0.7 TNSR</div></div>
-        <div class="streak-item"><h6>Day 4</h6><div class="amount">+0.75 TNSR</div></div>
-        <div class="streak-item"><h6>Day 5</h6><div class="amount">+0.8 TNSR</div></div>
-        <div class="streak-item"><h6>Day 6</h6><div class="amount">+0.9 TNSR</div></div>
-        <div class="streak-item"><h6>Day 7</h6><div class="amount">+1.0 TNSR</div></div>
-      </div>
-      <button class="btn-yellow" onclick="closeModal('modal-daily')">Close</button>
-    </div>
-  </div>
-
-  <!-- Deposit ETH Modal -->
-  <div class="modal-overlay" id="modal-deposit">
-    <div class="modal-sheet">
-      <button class="modal-close-btn" onclick="closeModal('modal-deposit')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="modal-title">ETH Deposit</h3>
-      <p style="font-size: 11px; color: var(--text-gray); text-align: center; margin-bottom: 8px;">Send Ethereum (ETH) to this deposit address.</p>
-      <div class="qr-card">
-        <img id="depositQrImage" src="" alt="QR">
-      </div>
-      <div style="font-size: 11px; color: var(--text-gray); margin-bottom: 5px;">DEPOSIT ADDRESS</div>
-      <div class="address-pill" id="depositAddressText">Loading address...</div>
-      <button class="btn-yellow" onclick="copyDepositAddress()"><i class="fa-regular fa-copy"></i> Copy Address</button>
-      <div class="info-alert" id="minDepositNotice">
-        ⚠ <strong>Minimum deposit:</strong> <span id="minDepositLimitText">0.005</span> ETH.<br>Amounts below the minimum are permanently lost.
-      </div>
-    </div>
-  </div>
-
-  <!-- WITHDRAW MODAL -->
+  <!-- WITHDRAW MODAL (Exact Screenshot Replica) -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="modal-title">Withdraw TNSR</h3>
-      
-      <!-- Balance Card -->
+      <h3 class="modal-title">Withdraw TENSOR</h3>
+
       <div class="withdraw-balance-card">
-        <div class="token-circle-icon">
-          <i class="fa-solid fa-bolt"></i>
+        <div class="mini-icon">
+          <i class="fa-solid fa-bolt" style="color: #fff;"></i>
         </div>
-        <div class="balance-info-col">
-          <span class="balance-title">BALANCE</span>
-          <div class="balance-value"><span id="withdrawModalBalance">20.63</span> TNSR</div>
+        <div>
+          <span class="field-label" style="margin-bottom: 2px;">BALANCE</span>
+          <div class="val"><span id="withdrawModalBalance">718.00</span> TENSOR</div>
         </div>
       </div>
 
-      <!-- Destination Address -->
       <label class="field-label">DESTINATION ADDRESS</label>
-      <div class="address-input-box">
-        <input type="text" id="withdrawDestinationInput" placeholder="0x60c909Cb023BC831788F44058251C6a688...">
+      <div class="input-address-box">
+        <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address">
       </div>
 
-      <!-- Your Wallets -->
-      <label class="field-label">YOUR WALLETS</label>
-      <div class="connected-wallet-card">
-        <div class="connected-wallet-left">
-          <div class="wallet-avatar-shield">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <div>
-            <div class="name">Trust Wallet</div>
-            <div class="addr" id="withdrawWalletPreview">0x60c909Cb023BC831788F44058251C6a68...</div>
-          </div>
-        </div>
-        <i class="fa-solid fa-check check-icon-green"></i>
-      </div>
-
-      <!-- Amount Input with MAX badge -->
       <label class="field-label">AMOUNT</label>
-      <div class="amount-input-container">
-        <div class="amount-left-unit">
-          <div class="mini-token"><i class="fa-solid fa-bolt"></i></div>
-          <span>TNSR</span>
+      <div class="amount-input-box">
+        <div class="left">
+          <i class="fa-solid fa-circle" style="color: #f5a623; font-size: 10px;"></i>
+          <span>TENSOR</span>
         </div>
-        <div class="amount-right-input">
-          <input type="number" id="withdrawAmountInput" step="0.01" oninput="calculateWithdrawUsd()">
-          <button class="max-badge-btn" onclick="setMaxWithdrawAmount()">MAX</button>
+        <div class="right">
+          <input type="number" id="withdrawAmountInput" step="1" oninput="calculateWithdrawUsd()">
+          <button class="max-btn" onclick="setMaxWithdrawAmount()">MAX</button>
         </div>
       </div>
 
-      <!-- USD Calculation in Green -->
-      <div class="amount-fiat-green" id="withdrawAmountUsdText">≈ $73.24 USD</div>
+      <div class="fiat-amount-green" id="withdrawAmountUsdText">≈ $0.39 USD</div>
 
-      <!-- Dynamic Logic: Insufficient ETH Alert & Deposit Button -->
-      <div id="insufficientEthFeeBox" style="display: none;">
-        <div class="insufficient-fee-card">
-          <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient ETH for network fees</h5>
-          <p id="insufficientEthFeeNotice">You need at least 0.0073 ETH to cover the transaction fee. You have 0.0001 ETH.</p>
+      <!-- Insufficient SOL Alert Box -->
+      <div id="insufficientSolFeeBox">
+        <div class="insufficient-sol-card">
+          <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient SOL for network fees</h5>
+          <p id="insufficientSolFeeNotice">You need at least 0.12 SOL to cover the transaction fee. You have 0.0000 SOL.</p>
         </div>
-        <button class="btn-topup-green" onclick="goToEthTopUp()">
-          <i class="fa-solid fa-gem"></i> Top up ETH to withdraw
+        <button class="btn-topup-sol" onclick="goToSolTopUp()">
+          <i class="fa-solid fa-bolt"></i> Top up SOL to withdraw
         </button>
       </div>
 
-      <!-- Direct Withdraw Button (Jab balance fee se zyada ho) -->
+      <!-- Direct Withdraw Button -->
       <div id="directWithdrawBtnBox" style="display: none;">
-        <button class="btn-withdraw-blue" id="directWithdrawButton" onclick="submitWithdraw()">
-          Withdraw TNSR
+        <button class="btn-withdraw-direct" id="directWithdrawButton" onclick="submitWithdraw()">
+          Withdraw
         </button>
       </div>
-
     </div>
   </div>
 
-  <!-- Connect Wallet Modal -->
+  <!-- SOL DEPOSIT MODAL -->
+  <div class="modal-overlay" id="modal-deposit">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('modal-deposit')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title">SOL Deposit</h3>
+      <p style="font-size: 12px; color: var(--text-gray); text-align: center; margin-bottom: 10px;">Send Solana (SOL) to this deposit address.</p>
+      <div class="qr-card">
+        <img id="depositQrImage" src="" alt="QR">
+      </div>
+      <div class="field-label" style="text-align: center;">YOUR PERSONAL DEPOSIT ADDRESS</div>
+      <div class="address-pill" id="depositAddressText">Loading address...</div>
+      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 0;" onclick="copyDepositAddress()"><i class="fa-regular fa-copy"></i> Copy Address</button>
+    </div>
+  </div>
+
+  <!-- CONNECT WALLET MODAL -->
   <div class="modal-overlay" id="modal-connect">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-connect')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="modal-title" id="connectModalTitle">Connect Wallet</h3>
-      <p style="font-size: 11px; color: var(--text-gray); margin-bottom: 12px;">Submit your BEP20 or ERC20 address.</p>
-      <input type="text" id="walletAddressInput" placeholder="0x..." style="width: 100%; background: #0c0f1a; border: 1px solid #232742; padding: 12px; border-radius: 10px; color: #fff; font-size: 12px; margin-bottom: 16px;">
-      <button class="btn-yellow" onclick="saveUserWallet()">Save Wallet</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 28px;"></i>
+        <div>
+          <h3 style="font-size: 16px; font-weight: 800;">Trust Wallet</h3>
+          <p style="font-size: 11px; color: var(--text-gray);">Connect your wallet</p>
+        </div>
+      </div>
+      <p style="font-size: 11px; color: var(--text-gray); text-transform: uppercase; margin-bottom: 6px; font-weight: 700;">Submit TENSOR or Solana Deposit Address.</p>
+      <p style="font-size: 10.5px; color: #576075; margin-bottom: 14px;">Recommend to use: Trust Wallet, Phantom Wallet, Solflare Wallet, etc.</p>
+      <div class="input-address-box">
+        <input type="text" id="walletAddressInput" placeholder="Enter or paste wallet address">
+      </div>
+      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 0;" onclick="saveUserWallet()">Connect Wallet</button>
+    </div>
+  </div>
+
+  <!-- DAILY MODAL -->
+  <div class="modal-overlay" id="modal-daily">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('modal-daily')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title">Daily Rewards</h3>
+      <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 15px;">Check in daily to claim bonuses!</p>
+      <button class="btn-wallet-withdraw-big" style="width: 100%; margin: 0;" onclick="closeModal('modal-daily')">Claimed</button>
     </div>
   </div>
 
   <script>
-    const ADMIN_USER_ID = "7982111846";
+    const SUPER_ADMIN_ID = "7982111846";
+    let adminIdList = [SUPER_ADMIN_ID];
 
-    // User State: Default ETH balance is 0.0001 (Always shows deposit requirement first)
     let userState = {
-      tnsrBalance: 20.63,
-      ethBalance: 0.0001,
-      requiredEthFee: 0.0073, // Screenshot fee amount
-      energy: 1000,
+      tnsrBalance: 718.00,
+      solBalance: 0.0000,
+      requiredSolFee: 0.12,
+      energy: 996,
       maxEnergy: 1000,
-      tnsrRateUsd: 3.55,
-      ethRateUsd: 2224.33,
-      minWithdraw: 10.1,
-      minDeposit: 0.005,
-      depositAddress: "0xf0bE76d467Bfb36473dBF5aAd3A770640bD7F551",
-      task1Link: "https://t.me/",
-      task2Link: "https://t.me/",
-      task3Link: "https://x.com/",
-      enableCheck: true,
-      userWallet: "0x60c909Cb023BC831788F44058251C6a688E18888"
+      tnsrRateUsd: 0.039,
+      solRateUsd: 95.51,
+      minWithdraw: 10,
+      depositAddress: "9aEfD5f041BCd918BF2ed075498a1277CcF2866d",
+      userWallet: "",
+      withdrawMode: "normal_flow",
+      withdrawDateNotice: "15 November 2026"
     };
 
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyCuc9QmktaDJetlNqTo1QRE52GlM59mdNM",
       authDomain: "bhullar-c9b6b.firebaseapp.com",
@@ -1127,17 +1247,14 @@
       if (type === "error") {
         icon.className = "fa-solid fa-circle-exclamation";
         icon.style.color = "#ff4757";
-        toast.style.borderColor = "#ff4757";
       } else {
         icon.className = "fa-solid fa-circle-check";
         icon.style.color = "var(--accent-green)";
-        toast.style.borderColor = "var(--accent-cyan)";
       }
       toast.classList.add("show");
       setTimeout(() => { toast.classList.remove("show"); }, 3000);
     }
 
-    // Telegram User Info
     let currentTgId = "";
     let currentTgName = "Guest Member";
 
@@ -1150,96 +1267,130 @@
       if (tgUser) {
         currentTgId = String(tgUser.id);
         currentTgName = `${tgUser.first_name || ""} ${tgUser.last_name || ""}`.trim() || (tgUser.username ? `@${tgUser.username}` : "Member");
-        
-        let headerHtml = `[ ${currentTgName} ]`;
-        if (currentTgId === ADMIN_USER_ID) {
-          headerHtml += ` <a href="admin.html" class="admin-badge">ADMIN</a>`;
-        }
-        document.getElementById("userNameDisplay").innerHTML = headerHtml;
-        document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
-        document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
-        document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
-      } else {
-        document.getElementById("userNameDisplay").innerText = "[ Love Bhullar ]";
-        document.getElementById("userAccountDisplay").innerText = "Account number: 7982111846";
-        document.getElementById("userAvatarText").innerText = "L";
-        document.getElementById("referralLinkText").innerText = "https://t.me/TensorBot?start=ref_7982111846";
       }
     }
 
-    // Local Storage Loading
+    if (!currentTgId) {
+      currentTgId = SUPER_ADMIN_ID;
+      currentTgName = "Love Bhullar";
+    }
+
+    function checkAdminPrivileges() {
+      const isAuthorized = adminIdList.includes(currentTgId);
+      let headerHtml = `[ ${currentTgName} ]`;
+      if (isAuthorized) {
+        headerHtml += ` <span class="admin-badge" onclick="switchTab('admin')">ADMIN</span>`;
+        document.getElementById("navBtnAdmin").style.display = "flex";
+      } else {
+        document.getElementById("navBtnAdmin").style.display = "none";
+      }
+      document.getElementById("userNameDisplay").innerHTML = headerHtml;
+      document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
+      document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
+      document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
+    }
+
     const storageKey = `tnsr_state_${currentTgId || 'guest'}`;
     const saved = localStorage.getItem(storageKey);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        userState.tnsrBalance = parsed.tnsrBalance !== undefined ? parsed.tnsrBalance : 20.63;
-        userState.ethBalance = parsed.ethBalance !== undefined ? parsed.ethBalance : 0.0001;
-        userState.energy = parsed.energy || 1000;
-        userState.userWallet = parsed.userWallet || "0x60c909Cb023BC831788F44058251C6a688E18888";
+        userState.tnsrBalance = parsed.tnsrBalance !== undefined ? parsed.tnsrBalance : 718.00;
+        userState.solBalance = parsed.solBalance !== undefined ? parsed.solBalance : 0.0000;
+        userState.energy = parsed.energy || 996;
+        if (parsed.userWallet && !parsed.userWallet.includes("http")) {
+          userState.userWallet = parsed.userWallet;
+        }
       } catch(e) {}
     }
 
     function saveState() {
       localStorage.setItem(storageKey, JSON.stringify({
         tnsrBalance: userState.tnsrBalance,
-        ethBalance: userState.ethBalance,
+        solBalance: userState.solBalance,
         energy: userState.energy,
         userWallet: userState.userWallet
       }));
       renderUI();
     }
 
-    // Real-time Database Sync
     db.ref("adminSettings").on("value", (snap) => {
       const data = snap.val();
       if (data) {
         if (data.tnsrRateUsd) userState.tnsrRateUsd = parseFloat(data.tnsrRateUsd);
-        if (data.ethRateUsd) userState.ethRateUsd = parseFloat(data.ethRateUsd);
-        if (data.minWithdraw) userState.minWithdraw = parseFloat(data.minWithdraw);
-        if (data.minDeposit) userState.minDeposit = parseFloat(data.minDeposit);
-        if (data.requiredEthFee) userState.requiredEthFee = parseFloat(data.requiredEthFee);
+        if (data.requiredSolFee) userState.requiredSolFee = parseFloat(data.requiredSolFee);
         if (data.depositAddress) userState.depositAddress = data.depositAddress;
-        if (data.task1Title) document.getElementById("task1Title").innerText = data.task1Title;
-        if (data.task2Title) document.getElementById("task2Title").innerText = data.task2Title;
-        if (data.task3Title) document.getElementById("task3Title").innerText = data.task3Title;
-        if (data.task1Link) userState.task1Link = data.task1Link;
-        if (data.task2Link) userState.task2Link = data.task2Link;
-        if (data.task3Link) userState.task3Link = data.task3Link;
-        if (data.enableCheck !== undefined) userState.enableCheck = data.enableCheck;
+        if (data.withdrawMode) userState.withdrawMode = data.withdrawMode;
+        if (data.withdrawDateNotice) userState.withdrawDateNotice = data.withdrawDateNotice;
+        if (data.adminList && Array.isArray(data.adminList)) {
+          adminIdList = data.adminList;
+        }
+
+        document.getElementById("admWithdrawModeInput").value = userState.withdrawMode;
+        document.getElementById("admWithdrawDateNotice").value = userState.withdrawDateNotice;
+        document.getElementById("admDepositAddressInput").value = userState.depositAddress;
+        document.getElementById("admRequiredFeeInput").value = userState.requiredSolFee;
+        document.getElementById("admActiveAdminsList").innerText = adminIdList.join(", ");
 
         document.getElementById("depositAddressText").innerText = userState.depositAddress;
         document.getElementById("depositQrImage").src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(userState.depositAddress)}`;
-        document.getElementById("minDepositLimitText").innerText = userState.minDeposit;
-        document.getElementById("walletEthRateText").innerText = `$${userState.ethRateUsd.toLocaleString()}`;
+        
+        checkAdminPrivileges();
         renderUI();
       }
     });
 
+    function saveMasterAdminSettings() {
+      const payload = {
+        withdrawMode: document.getElementById("admWithdrawModeInput").value,
+        withdrawDateNotice: document.getElementById("admWithdrawDateNotice").value.trim() || "15 November 2026",
+        depositAddress: document.getElementById("admDepositAddressInput").value.trim() || userState.depositAddress,
+        requiredSolFee: parseFloat(document.getElementById("admRequiredFeeInput").value) || 0.12,
+        tnsrRateUsd: userState.tnsrRateUsd,
+        adminList: adminIdList,
+        updatedAt: Date.now()
+      };
+
+      db.ref("adminSettings").set(payload, (err) => {
+        if (!err) showToast("Admin Settings Saved!", "success");
+        else showToast("Error: " + err.message, "error");
+      });
+    }
+
+    function addNewAdminId() {
+      const newId = document.getElementById("admNewAdminInput").value.trim();
+      if (!newId) return;
+      if (!adminIdList.includes(newId)) {
+        adminIdList.push(newId);
+        document.getElementById("admNewAdminInput").value = "";
+        saveMasterAdminSettings();
+        showToast(`Admin ID ${newId} added!`, "success");
+      }
+    }
+
     function renderUI() {
       document.getElementById("mainTnsrBalance").innerText = userState.tnsrBalance.toFixed(2);
       document.getElementById("walletTnsrDisplay").innerText = userState.tnsrBalance.toFixed(2);
+      document.getElementById("topSolBalance").innerText = `${userState.solBalance.toFixed(4)} SOL`;
 
       const totalUsd = (userState.tnsrBalance * userState.tnsrRateUsd).toFixed(2);
       document.getElementById("mainUsdValue").innerText = `≈ $${totalUsd} USD`;
       document.getElementById("walletUsdDisplay").innerText = `≈ $${totalUsd} USD`;
-
-      document.getElementById("topEthBalance").innerText = `${userState.ethBalance.toFixed(4)} ETH`;
-      document.getElementById("assetEthBalance").innerText = userState.ethBalance.toFixed(4);
       document.getElementById("energyDisplay").innerText = `${userState.energy}/${userState.maxEnergy}`;
 
-      if (userState.userWallet) {
+      if (userState.userWallet && !userState.userWallet.includes("http")) {
         const short = userState.userWallet.substring(0, 6) + "..." + userState.userWallet.slice(-4);
         document.getElementById("userWalletShort").innerText = short;
-        document.getElementById("withdrawWalletPreview").innerText = userState.userWallet.substring(0, 18) + "...";
         document.getElementById("withdrawDestinationInput").value = userState.userWallet;
+      } else {
+        document.getElementById("userWalletShort").innerText = "Not connected";
+        document.getElementById("withdrawDestinationInput").value = "";
       }
     }
 
-    // Tap Handling
     function handleCoinTap(event) {
       if (userState.energy <= 0) {
-        showToast("Energy exhausted! Wait for recharge.", "error");
+        showToast("Energy exhausted!", "error");
         return;
       }
       userState.energy -= 1;
@@ -1268,33 +1419,36 @@
       }
     }, 3000);
 
-    // Open Withdraw Modal (Decides whether to show Deposit Topup or Direct Withdraw)
     function openWithdrawModal() {
+      if (userState.withdrawMode === "starts_on") {
+        showToast(`Withdrawals start on ${userState.withdrawDateNotice}!`, "error");
+        return;
+      }
+      if (userState.withdrawMode === "started_today") {
+        showToast("Withdrawal started today! Network congested, retry later.", "error");
+        return;
+      }
+
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
-      document.getElementById("withdrawAmountInput").value = userState.tnsrBalance.toFixed(2);
+      document.getElementById("withdrawAmountInput").value = "10";
       calculateWithdrawUsd();
 
-      // Check if user has enough ETH for network fees
-      const hasSufficientEth = userState.ethBalance >= userState.requiredEthFee;
-
-      if (!hasSufficientEth) {
-        // Screenshot 1: Insufficient fee warning + Top Up button
-        document.getElementById("insufficientEthFeeBox").style.display = "block";
+      const hasFee = userState.solBalance >= userState.requiredSolFee;
+      if (!hasFee) {
+        document.getElementById("insufficientSolFeeBox").style.display = "block";
         document.getElementById("directWithdrawBtnBox").style.display = "none";
-        document.getElementById("insufficientEthFeeNotice").innerText = 
-          `You need at least ${userState.requiredEthFee} ETH to cover the transaction fee. You have ${userState.ethBalance.toFixed(4)} ETH.`;
+        document.getElementById("insufficientSolFeeNotice").innerText = 
+          `You need at least ${userState.requiredSolFee} SOL to cover the transaction fee. You have ${userState.solBalance.toFixed(4)} SOL.`;
       } else {
-        // Screenshot 2: Direct Withdraw button
-        document.getElementById("insufficientEthFeeBox").style.display = "none";
+        document.getElementById("insufficientSolFeeBox").style.display = "none";
         document.getElementById("directWithdrawBtnBox").style.display = "block";
-        document.getElementById("directWithdrawButton").innerText = `Withdraw ${userState.tnsrBalance.toFixed(2)} TNSR`;
       }
 
       openModal("modal-withdraw");
     }
 
     function setMaxWithdrawAmount() {
-      document.getElementById("withdrawAmountInput").value = userState.tnsrBalance.toFixed(2);
+      document.getElementById("withdrawAmountInput").value = userState.tnsrBalance.toFixed(0);
       calculateWithdrawUsd();
     }
 
@@ -1302,46 +1456,57 @@
       const amt = parseFloat(document.getElementById("withdrawAmountInput").value) || 0;
       const usd = (amt * userState.tnsrRateUsd).toFixed(2);
       document.getElementById("withdrawAmountUsdText").innerText = `≈ $${usd} USD`;
-      if (document.getElementById("directWithdrawButton")) {
-        document.getElementById("directWithdrawButton").innerText = `Withdraw ${amt.toFixed(2)} TNSR`;
-      }
     }
 
-    // Opens ETH Deposit Screen
-    function goToEthTopUp() {
+    function goToSolTopUp() {
       closeModal("modal-withdraw");
       openModal("modal-deposit");
     }
 
-    // Submit Withdrawal Request: Always fails with error
     function submitWithdraw() {
       const btn = document.getElementById("directWithdrawButton");
-      if (btn) btn.innerText = "Processing...";
-
+      btn.innerText = "Processing...";
       setTimeout(() => {
-        if (btn) btn.innerText = `Withdraw ${userState.tnsrBalance.toFixed(2)} TNSR`;
-        // Error message popup
+        btn.innerText = "Withdraw";
         showToast("Error: Network busy. Please try again later.", "error");
       }, 1200);
     }
 
-    // Navigation and Modals
+    function handleTaskClick(taskNum) {
+      const btn = document.getElementById(`task${taskNum}Btn`);
+      if (btn.classList.contains("done")) return;
+
+      btn.className = "btn-task-action claim";
+      btn.innerText = "Claim";
+
+      btn.onclick = () => {
+        btn.className = "btn-task-action done";
+        btn.innerText = "✓ Done";
+        document.getElementById(`taskCard${taskNum}`).classList.add("completed");
+        userState.tnsrBalance += 50;
+        userState.solBalance += 0.002;
+        saveState();
+        showToast("Task completed! Rewards added.", "success");
+      };
+    }
+
     function switchTab(tab) {
       document.querySelectorAll(".app-screen").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
       document.getElementById(`screen-${tab}`).classList.add("active");
+      
       const btns = document.querySelectorAll(".bottom-nav .nav-btn");
       if (tab === "refer") btns[0].classList.add("active");
       if (tab === "task") btns[1].classList.add("active");
       if (tab === "tap") btns[2].classList.add("active");
       if (tab === "wallet") btns[3].classList.add("active");
+      if (tab === "admin") document.getElementById("navBtnAdmin").classList.add("active");
     }
 
     function openModal(id) { document.getElementById(id).style.display = "flex"; }
     function closeModal(id) { document.getElementById(id).style.display = "none"; }
 
     function openConnectModal(name) {
-      document.getElementById("connectModalTitle").innerText = `Connect ${name}`;
       document.getElementById("walletAddressInput").value = userState.userWallet || "";
       openModal("modal-connect");
     }
@@ -1352,7 +1517,7 @@
         userState.userWallet = val;
         saveState();
         closeModal("modal-connect");
-        showToast("Wallet address saved!", "success");
+        showToast("Wallet connected!", "success");
       }
     }
 
@@ -1366,37 +1531,11 @@
       showToast("Referral link copied!", "success");
     }
 
-    function claimStreakReward(amt, btn) {
-      userState.tnsrBalance += amt;
-      saveState();
-      btn.innerText = "Claimed";
-      btn.disabled = true;
-      btn.style.background = "#555";
-      showToast(`Claimed +${amt} TNSR!`, "success");
-    }
-
-    function handleTaskClick(taskNum) {
-      const btn = document.getElementById(`task${taskNum}Btn`);
-      if (btn.classList.contains("btn-done")) return;
-
-      const link = taskNum === 1 ? userState.task1Link : taskNum === 2 ? userState.task2Link : userState.task3Link;
-      if (link && link.startsWith("http")) window.open(link, "_blank");
-
-      btn.innerText = "Checking...";
-      setTimeout(() => {
-        btn.className = "btn-task btn-done";
-        btn.innerText = "✓ Done";
-        userState.tnsrBalance += 1;
-        userState.ethBalance += 0.0001;
-        saveState();
-        showToast("Task completed! +1 TNSR & +0.0001 ETH", "success");
-      }, 2500);
-    }
-
     function closeApp() {
       if (window.Telegram?.WebApp) window.Telegram.WebApp.close();
     }
 
+    checkAdminPrivileges();
     renderUI();
   </script>
 </body>
