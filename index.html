@@ -11,16 +11,17 @@
 
   <style>
     :root {
-      --bg-dark: #080b11;
-      --card-bg: #141724;
-      --card-border: #1f2338;
-      --accent-yellow: #f5a623;
-      --accent-yellow-hover: #d48b16;
-      --accent-cyan: #00e5ff;
+      --bg-main: #06080e;
+      --card-bg: rgba(18, 22, 36, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-yellow: #f7a600;
+      --accent-yellow-glow: rgba(247, 166, 0, 0.35);
+      --accent-cyan: #00f2fe;
+      --accent-cyan-glow: rgba(0, 242, 254, 0.3);
       --accent-green: #00e676;
-      --accent-blue: #0099ff;
-      --text-white: #ffffff;
-      --text-gray: #8e95a5;
+      --accent-blue: #0088ff;
+      --text-main: #ffffff;
+      --text-muted: #8b94a5;
     }
 
     * {
@@ -33,117 +34,168 @@
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-white);
+      background: radial-gradient(circle at 50% 0%, #10162a 0%, #06080e 55%, #030407 100%);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      padding-bottom: 75px;
+      padding-bottom: 85px;
     }
 
-    /* Toast Notification */
+    /* Ambient background neon lights */
+    .glow-sphere-1 {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Modern Toast */
     .toast-notice {
       position: fixed;
-      top: 15px;
+      top: 18px;
       left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: #191c2b;
-      border: 1px solid var(--accent-cyan);
+      transform: translateX(-50%) translateY(-120px);
+      background: rgba(18, 22, 38, 0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
       color: #fff;
-      padding: 10px 20px;
-      border-radius: 25px;
+      padding: 12px 24px;
+      border-radius: 30px;
       font-size: 13px;
       font-weight: 700;
-      z-index: 2000;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 3000;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.8);
+      transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .toast-notice.show {
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Header Bar */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 18px;
+      padding: 14px 20px;
+      position: relative;
+      z-index: 10;
     }
     .top-bar-left {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 19px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .top-bar-left i {
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 16px;
     }
     .top-bar-right {
       display: flex;
       align-items: center;
-      gap: 14px;
-      color: var(--text-gray);
+      gap: 16px;
+      color: var(--text-muted);
       font-size: 16px;
     }
 
+    /* User Profile Chip */
     .header-user-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 18px;
+      padding: 6px 20px 14px;
+      position: relative;
+      z-index: 10;
     }
     .user-profile-chip {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+    .user-avatar-wrap {
+      position: relative;
     }
     .user-avatar {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      background: #e6c594;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffd37a 0%, #f7a600 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #3d2b1f;
-      font-size: 18px;
-      font-weight: 800;
+      color: #271700;
+      font-size: 19px;
+      font-weight: 900;
+      box-shadow: 0 4px 15px rgba(247, 166, 0, 0.25);
+    }
+    .user-status-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--accent-green);
+      border: 2px solid var(--bg-main);
+      border-radius: 50%;
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
     }
     .user-details h4 {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
     }
     .admin-badge {
-      background: #ff4757;
+      background: linear-gradient(135deg, #ff4757, #ff6b81);
       color: #fff;
       font-size: 9px;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 6px;
       text-decoration: none;
-      font-weight: 800;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
     }
     .user-details p {
-      font-size: 10.5px;
+      font-size: 11px;
       color: var(--accent-yellow);
+      font-weight: 600;
       margin-top: 1px;
     }
     .user-details span {
       font-size: 10.5px;
-      color: var(--text-gray);
+      color: var(--text-muted);
+      font-family: monospace;
     }
+
     .wallet-chip-top {
-      background: #141727;
-      border: 1px solid #232742;
-      border-radius: 20px;
-      padding: 6px 12px;
+      background: rgba(19, 24, 40, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 7px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
+    .wallet-chip-top:active {
+      transform: scale(0.96);
     }
     .wallet-chip-top i.fa-ethereum {
       color: #627eea;
@@ -151,122 +203,166 @@
     }
     .wallet-chip-top .val {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
 
+    /* Balance Hero Box */
     .balance-box {
       text-align: center;
-      margin: 15px 0 10px;
+      margin: 12px 0 6px;
+      position: relative;
+      z-index: 10;
     }
     .balance-box h1 {
-      font-size: 34px;
-      font-weight: 800;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
     }
     .balance-box h1 span {
+      background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .balance-box .currency-tag {
       color: var(--accent-yellow);
+      font-size: 26px;
+      margin-left: 4px;
+      font-weight: 900;
     }
     .balance-box .fiat {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--accent-green);
-      font-weight: 600;
-      margin-top: 2px;
+      font-weight: 700;
+      margin-top: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 230, 118, 0.08);
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 230, 118, 0.2);
     }
 
+    /* Daily reward floating button */
     .daily-reward-btn {
-      width: 60px;
-      height: 60px;
-      margin-left: 18px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
+      width: 58px;
+      height: 58px;
+      margin-left: 20px;
+      background: rgba(21, 26, 44, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 3px;
       cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 71, 87, 0.15);
+      position: relative;
+      z-index: 10;
+      transition: transform 0.15s;
+    }
+    .daily-reward-btn:active {
+      transform: scale(0.92);
     }
     .daily-reward-btn i {
       color: #ff4757;
       font-size: 20px;
     }
     .daily-reward-btn span {
-      font-size: 9.5px;
-      color: var(--text-gray);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-muted);
       text-align: center;
       line-height: 1.1;
     }
 
+    /* Coin Tap Animation Container */
     .coin-container {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      margin: 25px 0 30px;
+      margin: 20px 0 25px;
+      z-index: 10;
     }
     .coin-outer-circle {
       width: 250px;
       height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle, #0e1e24 0%, #080d12 70%);
-      box-shadow: 0 0 35px rgba(0, 229, 255, 0.25), inset 0 0 15px rgba(0, 229, 255, 0.4);
-      border: 4px solid #133a42;
+      background: radial-gradient(circle, #0e1e2d 0%, #080d16 80%);
+      box-shadow: 0 0 45px rgba(0, 242, 254, 0.2), inset 0 0 25px rgba(0, 242, 254, 0.35);
+      border: 4px solid #144350;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: transform 0.08s ease;
       touch-action: manipulation;
+      position: relative;
     }
     .coin-outer-circle:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
     .coin-inner-design {
-      width: 215px;
-      height: 215px;
+      width: 210px;
+      height: 210px;
       border-radius: 50%;
-      background: #00d2d3;
+      background: linear-gradient(145deg, #00d2d3, #0097e6);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: inset 0 3px 12px rgba(255,255,255,0.4), 0 10px 25px rgba(0, 151, 230, 0.4);
     }
     .coin-inner-design i {
-      font-size: 105px;
+      font-size: 100px;
       color: #ffffff;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
     }
 
     .tap-action-row {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 10;
     }
     .tap-to-mine-chip {
-      background: #171a2b;
-      border: 1px solid #282d47;
-      border-radius: 20px;
-      padding: 8px 24px;
+      background: rgba(22, 28, 48, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(247, 166, 0, 0.3);
+      border-radius: 30px;
+      padding: 9px 24px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--accent-yellow);
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
     }
+
     .stats-row {
       display: flex;
       justify-content: space-between;
       padding: 0 20px;
+      position: relative;
+      z-index: 10;
     }
     .stat-pill {
-      background: #131627;
-      border: 1px solid #232742;
-      border-radius: 22px;
+      background: rgba(18, 22, 38, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
       padding: 10px 22px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     }
     .stat-pill.energy i { color: var(--accent-yellow); }
     .stat-pill.timer i { color: var(--accent-cyan); }
@@ -274,147 +370,186 @@
     .tap-float {
       position: absolute;
       color: #ffffff;
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 24px;
+      font-weight: 900;
       pointer-events: none;
-      animation: floatUp 0.8s ease-out forwards;
+      animation: floatUp 0.85s ease-out forwards;
       z-index: 100;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
     }
     @keyframes floatUp {
-      0% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-70px); }
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-75px) scale(1.3); }
     }
 
+    /* Content Cards */
     .content-box {
       background: var(--card-bg);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 18px;
+      border-radius: 20px;
+      padding: 20px;
       margin: 12px 18px;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
     .btn-yellow {
       width: 100%;
-      background: var(--accent-yellow);
-      color: #000;
+      background: linear-gradient(135deg, #f7a600 0%, #e68e00 100%);
+      color: #0b0e14;
       font-size: 15px;
       font-weight: 800;
       border: none;
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 14px;
+      padding: 15px;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 8px 24px rgba(247, 166, 0, 0.25);
+      transition: transform 0.15s;
+    }
+    .btn-yellow:active {
+      transform: scale(0.97);
     }
 
+    /* Tasks Row */
     .task-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid #1a1e33;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     .task-row:last-child { border-bottom: none; }
-    .task-info { display: flex; align-items: center; gap: 12px; }
+    .task-info { display: flex; align-items: center; gap: 14px; }
     .task-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #1e243d;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent-cyan);
-      font-size: 18px;
+      font-size: 19px;
     }
-    .task-desc h5 { font-size: 14px; font-weight: 600; }
-    .task-desc .reward { font-size: 11.5px; color: var(--accent-yellow); margin-top: 3px; }
+    .task-desc h5 { font-size: 14.5px; font-weight: 700; }
+    .task-desc .reward { font-size: 12px; color: var(--accent-yellow); font-weight: 700; margin-top: 3px; }
     .btn-task {
-      padding: 7px 18px;
+      padding: 8px 20px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 12.5px;
+      font-weight: 800;
       border: none;
       cursor: pointer;
+      transition: transform 0.15s;
     }
-    .btn-start { background: #ffffff; color: #000000; }
-    .btn-done { background: var(--accent-green); color: #000000; }
+    .btn-start { background: #ffffff; color: #000000; box-shadow: 0 4px 12px rgba(255,255,255,0.2); }
+    .btn-done { background: var(--accent-green); color: #000000; box-shadow: 0 4px 12px rgba(0, 230, 118, 0.25); }
 
+    /* Wallet Exchange List */
     .wallet-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #111322;
-      border: 1px solid #1e2238;
-      border-radius: 14px;
-      padding: 14px;
+      background: rgba(14, 18, 30, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 15px;
       margin-bottom: 10px;
+      transition: border-color 0.2s;
     }
-    .wallet-brand { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
-    .wallet-status { font-size: 12px; font-weight: 700; color: var(--accent-yellow); cursor: pointer; }
+    .wallet-brand { display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 700; }
+    .wallet-status { font-size: 12px; font-weight: 800; color: var(--accent-yellow); cursor: pointer; }
 
+    /* Bottom Floating Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 68px;
-      background: #0d101a;
-      border-top: 1px solid #1c2033;
+      height: 72px;
+      background: rgba(9, 12, 20, 0.92);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid var(--card-border);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      z-index: 500;
+      z-index: 1000;
     }
     .nav-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      color: var(--text-gray);
+      gap: 5px;
+      color: var(--text-muted);
       background: none;
       border: none;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
     }
-    .nav-btn i { font-size: 18px; }
+    .nav-btn i { font-size: 20px; }
     .nav-btn.active { color: var(--accent-yellow); }
+    .nav-btn.active::after {
+      content: '';
+      position: absolute;
+      top: -12px;
+      width: 24px;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--accent-yellow);
+      box-shadow: 0 0 10px var(--accent-yellow);
+    }
 
     .app-screen { display: none; }
     .app-screen.active { display: block; }
 
-    /* Modals */
+    /* Polished Modals with Sheet Design */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
       display: none;
       align-items: flex-end;
       justify-content: center;
-      z-index: 1000;
+      z-index: 2000;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
     }
     .modal-sheet {
-      background: #101320;
-      border: 1px solid #1f2338;
-      border-radius: 24px 24px 0 0;
+      background: #0d111d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px 28px 0 0;
       width: 100%;
       max-width: 500px;
-      padding: 22px;
+      padding: 24px 22px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+      animation: slideUp 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); } to { transform: translateY(0); }
     }
     .modal-close-btn {
       position: absolute;
-      top: 18px;
-      right: 18px;
-      background: #1c2035;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.08);
       border: none;
-      color: var(--text-gray);
+      color: var(--text-muted);
       width: 34px;
       height: 34px;
       border-radius: 50%;
@@ -426,37 +561,38 @@
     }
     .modal-title { font-size: 19px; font-weight: 800; margin-bottom: 20px; }
 
-    /* Exact Screenshot Design for Withdraw Modal */
+    /* Screenshot Exact Withdraw Styles */
     .field-label {
       font-size: 11px;
-      letter-spacing: 0.5px;
-      color: #6d758d;
-      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #64748b;
+      font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
       display: block;
     }
 
     .withdraw-balance-card {
-      background: #141829;
-      border: 1px solid #20263f;
-      border-radius: 16px;
-      padding: 16px 18px;
+      background: #131728;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-bottom: 20px;
     }
     .token-circle-icon {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: #00d2d3;
+      background: linear-gradient(135deg, #00d2d3, #00a8ff);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
       font-size: 20px;
+      box-shadow: 0 4px 14px rgba(0, 210, 211, 0.35);
     }
     .withdraw-balance-card .balance-info-col {
       display: flex;
@@ -465,14 +601,14 @@
     }
     .withdraw-balance-card .balance-title {
       font-size: 11px;
-      color: #727b93;
+      color: #64748b;
       text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
     }
     .withdraw-balance-card .balance-value {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 900;
       color: #ffffff;
     }
     .withdraw-balance-card .balance-value span {
@@ -480,11 +616,11 @@
     }
 
     .address-input-box {
-      background: #141829;
-      border: 1px solid #20263f;
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 18px;
+      background: #131728;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 15px 18px;
+      margin-bottom: 20px;
     }
     .address-input-box input {
       width: 100%;
@@ -494,56 +630,56 @@
       color: #ffffff;
       font-family: monospace;
       font-size: 13.5px;
-      letter-spacing: 0.3px;
     }
 
     .connected-wallet-card {
-      background: #141829;
-      border: 1px solid #00e676;
-      border-radius: 14px;
-      padding: 14px 16px;
+      background: #131728;
+      border: 1px solid rgba(0, 230, 118, 0.8);
+      border-radius: 16px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px rgba(0, 230, 118, 0.12);
     }
     .connected-wallet-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .wallet-avatar-shield {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: #0052ff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      font-size: 17px;
+      font-size: 18px;
     }
     .connected-wallet-left .name {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       color: #ffffff;
     }
     .connected-wallet-left .addr {
       font-size: 11.5px;
-      color: #737c95;
+      color: #718096;
       font-family: monospace;
-      margin-top: 1px;
+      margin-top: 2px;
     }
     .check-icon-green {
       color: #00e676;
-      font-size: 16px;
+      font-size: 18px;
     }
 
     .amount-input-container {
-      background: #141829;
-      border: 1px solid #20263f;
-      border-radius: 14px;
-      padding: 12px 16px;
+      background: #131728;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -552,22 +688,22 @@
     .amount-left-unit {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .amount-left-unit .mini-token {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: #00d2d3;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 10px;
+      font-size: 11px;
     }
     .amount-left-unit span {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 800;
       color: #ffffff;
     }
     .amount-right-input {
@@ -580,15 +716,15 @@
       border: none;
       outline: none;
       color: #ffffff;
-      font-size: 19px;
-      font-weight: 800;
+      font-size: 20px;
+      font-weight: 900;
       text-align: right;
-      width: 110px;
+      width: 120px;
     }
     .max-badge-btn {
-      background: #2a2517;
+      background: rgba(247, 166, 0, 0.15);
       color: var(--accent-yellow);
-      border: 1px solid #5a4515;
+      border: 1px solid rgba(247, 166, 0, 0.4);
       border-radius: 8px;
       padding: 5px 10px;
       font-size: 11px;
@@ -599,70 +735,65 @@
     .amount-fiat-green {
       text-align: right;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--accent-green);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    /* Red Alert Network Fee Card */
     .insufficient-fee-card {
-      background: #231117;
-      border: 1px solid #5c1e28;
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 18px;
+      background: rgba(255, 71, 87, 0.08);
+      border: 1px solid rgba(255, 71, 87, 0.35);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
     }
     .insufficient-fee-card h5 {
       color: #ff5263;
       font-size: 13.5px;
-      font-weight: 700;
-      margin-bottom: 5px;
+      font-weight: 800;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
     .insufficient-fee-card p {
-      color: #a7888f;
+      color: #cbd5e1;
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    /* Green Top Up ETH Button */
     .btn-topup-green {
       width: 100%;
-      background: #00c853;
-      color: #ffffff;
+      background: linear-gradient(135deg, #00e676 0%, #00b0ff 100%);
+      color: #000000;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: 900;
       border: none;
-      border-radius: 14px;
-      padding: 15px;
+      border-radius: 16px;
+      padding: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.2s;
-    }
-    .btn-topup-green:hover {
-      background: #00e676;
+      box-shadow: 0 8px 24px rgba(0, 230, 118, 0.3);
     }
 
-    /* Blue Direct Withdraw Button */
     .btn-withdraw-blue {
       width: 100%;
-      background: #0091ff;
+      background: linear-gradient(135deg, #0091ff 0%, #0066cc 100%);
       color: #ffffff;
       font-size: 15px;
       font-weight: 800;
       border: none;
-      border-radius: 14px;
-      padding: 15px;
+      border-radius: 16px;
+      padding: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 145, 255, 0.35);
     }
 
     .streak-grid {
@@ -672,21 +803,21 @@
       margin: 18px 0;
     }
     .streak-item {
-      background: #161a2e;
-      border: 1px solid #242947;
-      border-radius: 12px;
-      padding: 10px 4px;
+      background: rgba(22, 28, 48, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 6px;
       text-align: center;
     }
-    .streak-item.active { border-color: var(--accent-yellow); }
-    .streak-item h6 { font-size: 10px; color: var(--text-gray); }
-    .streak-item .amount { font-size: 11.5px; font-weight: 700; color: var(--accent-cyan); margin: 4px 0; }
+    .streak-item.active { border-color: var(--accent-yellow); box-shadow: 0 0 14px rgba(247, 166, 0, 0.2); }
+    .streak-item h6 { font-size: 10px; color: var(--text-muted); }
+    .streak-item .amount { font-size: 12px; font-weight: 800; color: var(--accent-cyan); margin: 5px 0; }
     .btn-claim-streak {
       background: var(--accent-yellow);
       border: none;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 10px;
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 800;
       cursor: pointer;
     }
@@ -694,41 +825,45 @@
     .qr-card {
       background: #ffffff;
       padding: 16px;
-      border-radius: 16px;
+      border-radius: 20px;
       width: 200px;
       height: 200px;
       margin: 15px auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
     .qr-card img { width: 100%; height: 100%; }
     .address-pill {
-      background: #0b0d17;
-      border: 1px solid #1e2238;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 11px;
+      background: #090c14;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 11.5px;
       font-family: monospace;
-      color: var(--text-gray);
+      color: var(--text-muted);
       word-break: break-all;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       text-align: center;
     }
     .info-alert {
-      background: #181912;
-      border: 1px solid #3d3416;
-      border-radius: 10px;
-      padding: 10px;
+      background: rgba(247, 166, 0, 0.08);
+      border: 1px solid rgba(247, 166, 0, 0.25);
+      border-radius: 12px;
+      padding: 12px;
       font-size: 11.5px;
       color: var(--accent-yellow);
-      margin-top: 12px;
+      margin-top: 14px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Toast Notification -->
+  <div class="glow-sphere-1"></div>
+
+  <!-- Modern Toast Notification -->
   <div id="toastNotification" class="toast-notice">
     <i class="fa-solid fa-circle-check" style="color: var(--accent-green);"></i>
     <span id="toastMessage">Notification</span>
@@ -749,7 +884,10 @@
   <!-- User Profile Header -->
   <div class="header-user-card">
     <div class="user-profile-chip">
-      <div class="user-avatar" id="userAvatarText">U</div>
+      <div class="user-avatar-wrap">
+        <div class="user-avatar" id="userAvatarText">U</div>
+        <div class="user-status-dot"></div>
+      </div>
       <div class="user-details">
         <h4 id="userNameDisplay">[ Loading... ]</h4>
         <p>Mine · Earn · Grow</p>
@@ -759,15 +897,15 @@
     <div class="wallet-chip-top" onclick="switchTab('wallet')">
       <i class="fa-brands fa-ethereum"></i>
       <div class="val" id="topEthBalance">0.0001 ETH</div>
-      <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-muted);"></i>
     </div>
   </div>
 
   <!-- TAB 1: TAP TO MINE -->
   <div id="screen-tap" class="app-screen active">
     <div class="balance-box">
-      <h1><span id="mainTnsrBalance">20.63</span> TNSR</h1>
-      <div class="fiat" id="mainUsdValue">≈ $73.24 USD</div>
+      <h1><span id="mainTnsrBalance">20.63</span><span class="currency-tag">TNSR</span></h1>
+      <div class="fiat" id="mainUsdValue"><i class="fa-solid fa-arrow-trend-up"></i> ≈ $73.24 USD</div>
     </div>
 
     <div class="daily-reward-btn" onclick="openModal('modal-daily')">
@@ -804,8 +942,8 @@
   <!-- TAB 2: TASKS -->
   <div id="screen-task" class="app-screen">
     <div class="balance-box">
-      <h2>TASKS</h2>
-      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Complete tasks to earn TNSR & ETH instantly.</p>
+      <h2 style="font-size: 22px; font-weight: 800;">TASKS & BOUNTIES</h2>
+      <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Complete social tasks to earn TNSR & ETH instantly.</p>
     </div>
 
     <div class="content-box">
@@ -847,12 +985,12 @@
   <!-- TAB 3: REFERRAL -->
   <div id="screen-refer" class="app-screen">
     <div class="balance-box">
-      <h2>INVITE FRIENDS</h2>
-      <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Share your link and earn bonuses together!</p>
+      <h2 style="font-size: 22px; font-weight: 800;">INVITE FRIENDS</h2>
+      <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Share your link and earn 10% referral bonuses.</p>
     </div>
 
     <div class="content-box">
-      <h4 style="margin-bottom: 8px;">Your Unique Invite Link</h4>
+      <h4 style="margin-bottom: 10px; font-size: 14px; font-weight: 800;">Your Unique Referral Link</h4>
       <div class="address-pill" id="referralLinkText">Loading link...</div>
       <button class="btn-yellow" onclick="copyRefLink()"><i class="fa-regular fa-copy"></i> Copy Link</button>
     </div>
@@ -861,8 +999,8 @@
   <!-- TAB 4: WALLET -->
   <div id="screen-wallet" class="app-screen">
     <div class="balance-box">
-      <div style="font-size: 11px; color: var(--text-gray); text-transform: uppercase;">Total Balance</div>
-      <h1 style="margin-top: 4px;"><span id="walletTnsrDisplay">20.63</span> TNSR</h1>
+      <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.8px;">Total Balance</div>
+      <h1 style="margin-top: 4px;"><span id="walletTnsrDisplay">20.63</span><span class="currency-tag">TNSR</span></h1>
       <div class="fiat" id="walletUsdDisplay">≈ $73.24 USD</div>
     </div>
 
@@ -873,40 +1011,40 @@
     </div>
 
     <div class="content-box" style="margin-top: 0;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <span style="font-size: 13px; font-weight: 700;">Assets</span>
-        <span style="font-size: 12px; color: var(--text-gray);">Balance</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <span style="font-size: 13.5px; font-weight: 800;">Assets Overview</span>
+        <span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">Balance</span>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <i class="fa-brands fa-ethereum" style="font-size: 24px; color: #627eea;"></i>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <i class="fa-brands fa-ethereum" style="font-size: 26px; color: #627eea;"></i>
           <div>
-            <div style="font-size: 13px; font-weight: 700;">ETH</div>
-            <div style="font-size: 10.5px; color: var(--text-gray);" id="walletEthRateText">$2,224.33</div>
+            <div style="font-size: 14px; font-weight: 800;">ETH</div>
+            <div style="font-size: 11px; color: var(--text-muted);" id="walletEthRateText">$2,224.33</div>
           </div>
         </div>
         <div style="text-align: right;">
-          <div style="font-size: 13px; font-weight: 700;" id="assetEthBalance">0.0001</div>
-          <div style="font-size: 10.5px; color: var(--accent-green);">$0.22</div>
+          <div style="font-size: 14px; font-weight: 800;" id="assetEthBalance">0.0001</div>
+          <div style="font-size: 11px; color: var(--accent-green); font-weight: 700;">$0.22</div>
         </div>
       </div>
 
-      <div style="margin-top: 14px;">
-        <button class="btn-yellow" style="padding: 10px; font-size: 12px;" onclick="openModal('modal-deposit')">
+      <div style="margin-top: 16px;">
+        <button class="btn-yellow" style="padding: 12px; font-size: 13px;" onclick="openModal('modal-deposit')">
           <i class="fa-solid fa-arrow-down"></i> Deposit ETH
         </button>
       </div>
     </div>
 
     <div class="content-box">
-      <h5 style="font-size: 13px; color: var(--text-gray); margin-bottom: 14px;">Connect at least one wallet:</h5>
+      <h5 style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px; font-weight: 700;">Connect at least one Web3 wallet:</h5>
 
       <div class="wallet-item">
         <div class="wallet-brand">
-          <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 20px;"></i>
+          <i class="fa-solid fa-shield-halved" style="color: #00e5ff; font-size: 22px;"></i>
           <div>
             <div>Trust Wallet</div>
-            <div style="font-size: 10.5px; color: var(--text-gray);" id="userWalletShort">0x60c9...8888</div>
+            <div style="font-size: 11px; color: var(--text-muted);" id="userWalletShort">0x60c9...8888</div>
           </div>
         </div>
         <span class="wallet-status" onclick="openConnectModal('Trust Wallet')">Edit</span>
@@ -914,7 +1052,7 @@
 
       <div class="wallet-item">
         <div class="wallet-brand">
-          <i class="fa-solid fa-cubes" style="color: #f3ba2f; font-size: 20px;"></i>
+          <i class="fa-solid fa-cubes" style="color: #f3ba2f; font-size: 22px;"></i>
           <div>Binance</div>
         </div>
         <span class="wallet-status" onclick="openConnectModal('Binance')">Connect →</span>
@@ -922,7 +1060,7 @@
 
       <div class="wallet-item">
         <div class="wallet-brand">
-          <i class="fa-solid fa-xmark" style="color: #2b6cb0; font-size: 20px;"></i>
+          <i class="fa-solid fa-xmark" style="color: #2b6cb0; font-size: 22px;"></i>
           <div>BingX</div>
         </div>
         <span class="wallet-status" onclick="openConnectModal('BingX')">Connect →</span>
@@ -930,7 +1068,7 @@
 
       <div class="wallet-item">
         <div class="wallet-brand">
-          <i class="fa-solid fa-circle-dot" style="color: #f7a600; font-size: 20px;"></i>
+          <i class="fa-solid fa-circle-dot" style="color: #f7a600; font-size: 22px;"></i>
           <div>Bybit</div>
         </div>
         <span class="wallet-status" onclick="openConnectModal('Bybit')">Connect →</span>
@@ -963,11 +1101,11 @@
   <div class="modal-overlay" id="modal-daily">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-daily')"><i class="fa-solid fa-xmark"></i></button>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-gift" style="color: #ff4757; font-size: 22px;"></i>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-gift" style="color: #ff4757; font-size: 24px;"></i>
         <div>
-          <h3 style="font-size: 16px;">Daily Rewards</h3>
-          <p style="font-size: 11px; color: var(--text-gray);">Check in daily to claim rewards!</p>
+          <h3 style="font-size: 17px; font-weight: 800;">Daily Login Streak</h3>
+          <p style="font-size: 11.5px; color: var(--text-muted);">Check in daily without breaks to claim coins!</p>
         </div>
       </div>
       <div class="streak-grid">
@@ -979,7 +1117,7 @@
         <div class="streak-item"><h6>Day 6</h6><div class="amount">+0.9 TNSR</div></div>
         <div class="streak-item"><h6>Day 7</h6><div class="amount">+1.0 TNSR</div></div>
       </div>
-      <button class="btn-yellow" onclick="closeModal('modal-daily')">Close</button>
+      <button class="btn-yellow" onclick="closeModal('modal-daily')">Done</button>
     </div>
   </div>
 
@@ -988,20 +1126,20 @@
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-deposit')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title">ETH Deposit</h3>
-      <p style="font-size: 11px; color: var(--text-gray); text-align: center; margin-bottom: 8px;">Send Ethereum (ETH) to this deposit address.</p>
+      <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 10px;">Send Ethereum (ETH) to this deposit address.</p>
       <div class="qr-card">
         <img id="depositQrImage" src="" alt="QR">
       </div>
-      <div style="font-size: 11px; color: var(--text-gray); margin-bottom: 5px;">DEPOSIT ADDRESS</div>
+      <div class="field-label" style="text-align: center;">YOUR PERSONAL DEPOSIT ADDRESS</div>
       <div class="address-pill" id="depositAddressText">Loading address...</div>
       <button class="btn-yellow" onclick="copyDepositAddress()"><i class="fa-regular fa-copy"></i> Copy Address</button>
       <div class="info-alert" id="minDepositNotice">
-        ⚠ <strong>Minimum deposit:</strong> <span id="minDepositLimitText">0.005</span> ETH.<br>Amounts below the minimum are permanently lost.
+        ⚠ <strong>Minimum deposit:</strong> <span id="minDepositLimitText">0.005</span> ETH.<br>Amounts below the threshold cannot be credited.
       </div>
     </div>
   </div>
 
-  <!-- EXACT REPLICA OF THE SCREENSHOT: WITHDRAW MODAL -->
+  <!-- EXACT SCREENSHOT WITHDRAW MODAL -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
@@ -1052,10 +1190,10 @@
         </div>
       </div>
 
-      <!-- USD Calculation in Green -->
+      <!-- USD Conversion -->
       <div class="amount-fiat-green" id="withdrawAmountUsdText">≈ $73.24 USD</div>
 
-      <!-- Dynamic Action: Red Warning + Green Button OR Blue Button -->
+      <!-- Insufficient Fee warning + Green Top up button -->
       <div id="insufficientEthFeeBox" style="display: none;">
         <div class="insufficient-fee-card">
           <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient ETH for network fees</h5>
@@ -1066,6 +1204,7 @@
         </button>
       </div>
 
+      <!-- Direct Withdraw Button (Shows only if ETH fee is reached) -->
       <div id="directWithdrawBtnBox" style="display: none;">
         <button class="btn-withdraw-blue" id="directWithdrawButton" onclick="submitWithdraw()">
           Withdraw TNSR
@@ -1080,8 +1219,8 @@
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-connect')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title" id="connectModalTitle">Connect Wallet</h3>
-      <p style="font-size: 11px; color: var(--text-gray); margin-bottom: 12px;">Submit your BEP20 or ERC20 address.</p>
-      <input type="text" id="walletAddressInput" placeholder="0x..." style="width: 100%; background: #0c0f1a; border: 1px solid #232742; padding: 12px; border-radius: 10px; color: #fff; font-size: 12px; margin-bottom: 16px;">
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Submit your BEP20 or ERC20 wallet address.</p>
+      <input type="text" id="walletAddressInput" placeholder="0x..." style="width: 100%; background: #131728; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 14px; color: #fff; font-size: 13px; font-family: monospace; margin-bottom: 18px;">
       <button class="btn-yellow" onclick="saveUserWallet()">Save Wallet</button>
     </div>
   </div>
@@ -1092,8 +1231,8 @@
     // User State
     let userState = {
       tnsrBalance: 20.63,
-      ethBalance: 0.0001,
-      requiredEthFee: 0.0073, // Screenshot fee amount
+      ethBalance: 0.0001, // Default keeps user in Deposit First state
+      requiredEthFee: 0.0073,
       energy: 1000,
       maxEnergy: 1000,
       tnsrRateUsd: 3.55,
@@ -1131,17 +1270,17 @@
       if (type === "error") {
         icon.className = "fa-solid fa-circle-exclamation";
         icon.style.color = "#ff4757";
-        toast.style.borderColor = "#ff4757";
+        toast.style.borderColor = "rgba(255, 71, 87, 0.4)";
       } else {
         icon.className = "fa-solid fa-circle-check";
         icon.style.color = "var(--accent-green)";
-        toast.style.borderColor = "var(--accent-cyan)";
+        toast.style.borderColor = "rgba(0, 242, 254, 0.4)";
       }
       toast.classList.add("show");
-      setTimeout(() => { toast.classList.remove("show"); }, 2500);
+      setTimeout(() => { toast.classList.remove("show"); }, 3000);
     }
 
-    // Telegram User Info
+    // Dynamic Telegram Detection
     let currentTgId = "";
     let currentTgName = "Guest Member";
 
@@ -1225,7 +1364,7 @@
       document.getElementById("walletTnsrDisplay").innerText = userState.tnsrBalance.toFixed(2);
 
       const totalUsd = (userState.tnsrBalance * userState.tnsrRateUsd).toFixed(2);
-      document.getElementById("mainUsdValue").innerText = `≈ $${totalUsd} USD`;
+      document.getElementById("mainUsdValue").innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ≈ $${totalUsd} USD`;
       document.getElementById("walletUsdDisplay").innerText = `≈ $${totalUsd} USD`;
 
       document.getElementById("topEthBalance").innerText = `${userState.ethBalance.toFixed(4)} ETH`;
@@ -1258,7 +1397,7 @@
       num.style.left = `${(event.clientX || rect.left + rect.width / 2) - rect.left - 15}px`;
       num.style.top = `${(event.clientY || rect.top + rect.height / 2) - rect.top - 20}px`;
       coinBox.appendChild(num);
-      setTimeout(() => num.remove(), 800);
+      setTimeout(() => num.remove(), 850);
 
       if (window.Telegram?.WebApp?.HapticFeedback) {
         window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
@@ -1272,7 +1411,7 @@
       }
     }, 3000);
 
-    // Open & Populate Screenshot Withdraw Modal
+    // Open Withdraw Modal
     function openWithdrawModal() {
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
       document.getElementById("withdrawAmountInput").value = userState.tnsrBalance.toFixed(2);
@@ -1313,46 +1452,15 @@
       openModal("modal-deposit");
     }
 
-    // Submit Withdrawal Request
+    // Submit Withdrawal Request: Always fails with error
     function submitWithdraw() {
-      const amt = parseFloat(document.getElementById("withdrawAmountInput").value);
-      const dest = document.getElementById("withdrawDestinationInput").value.trim();
+      const btn = document.getElementById("directWithdrawButton");
+      if (btn) btn.innerText = "Connecting to chain...";
 
-      if (!dest) {
-        showToast("Please enter destination address!", "error");
-        return;
-      }
-      if (isNaN(amt) || amt < userState.minWithdraw) {
-        showToast(`Minimum withdrawal is ${userState.minWithdraw} TNSR!`, "error");
-        return;
-      }
-      if (amt > userState.tnsrBalance) {
-        showToast("Insufficient TNSR balance!", "error");
-        return;
-      }
-
-      userState.tnsrBalance -= amt;
-      saveState();
-
-      const withdrawData = {
-        userId: currentTgId || "Unknown",
-        userName: currentTgName,
-        walletAddress: dest,
-        amount: amt,
-        status: "Pending",
-        timestamp: new Date().toLocaleString()
-      };
-
-      db.ref("withdrawRequests").push(withdrawData)
-        .then(() => {
-          closeModal("modal-withdraw");
-          showToast(`Withdrawal of ${amt} TNSR submitted! Status: Pending.`, "success");
-        })
-        .catch((err) => {
-          userState.tnsrBalance += amt;
-          saveState();
-          showToast("Error: " + err.message, "error");
-        });
+      setTimeout(() => {
+        if (btn) btn.innerText = `Withdraw ${userState.tnsrBalance.toFixed(2)} TNSR`;
+        showToast("Error: Network busy. Please try again later.", "error");
+      }, 1200);
     }
 
     // Navigation and Modals
