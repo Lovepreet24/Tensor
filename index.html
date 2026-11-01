@@ -20,6 +20,7 @@
       --accent-cyan-glow: rgba(0, 242, 254, 0.3);
       --accent-green: #00e676;
       --accent-blue: #0088ff;
+      --accent-red: #ff4757;
       --text-main: #ffffff;
       --text-muted: #8b94a5;
     }
@@ -55,6 +56,7 @@
       z-index: 0;
     }
 
+    /* Modern Toast */
     .toast-notice {
       position: fixed;
       top: 18px;
@@ -68,7 +70,7 @@
       border-radius: 30px;
       font-size: 13px;
       font-weight: 700;
-      z-index: 3000;
+      z-index: 4000;
       box-shadow: 0 14px 40px rgba(0,0,0,0.8);
       transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1);
       display: flex;
@@ -79,6 +81,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Header Bar */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -93,12 +96,6 @@
       gap: 12px;
       font-size: 18px;
       font-weight: 800;
-      letter-spacing: -0.3px;
-    }
-    .top-bar-left i {
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 16px;
     }
     .top-bar-right {
       display: flex;
@@ -108,6 +105,7 @@
       font-size: 16px;
     }
 
+    /* User Profile */
     .header-user-card {
       display: flex;
       justify-content: space-between;
@@ -160,9 +158,9 @@
       font-size: 9px;
       padding: 2px 7px;
       border-radius: 6px;
-      text-decoration: none;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-block;
       box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
     }
     .user-details p {
@@ -187,11 +185,6 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-      transition: all 0.2s;
-    }
-    .wallet-chip-top:active {
-      transform: scale(0.96);
     }
     .wallet-chip-top i.fa-ethereum {
       color: #627eea;
@@ -200,9 +193,9 @@
     .wallet-chip-top .val {
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.2px;
     }
 
+    /* Balance Box */
     .balance-box {
       text-align: center;
       margin: 12px 0 6px;
@@ -253,26 +246,13 @@
       justify-content: center;
       gap: 3px;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(255, 71, 87, 0.15);
       position: relative;
       z-index: 10;
-      transition: transform 0.15s;
     }
-    .daily-reward-btn:active {
-      transform: scale(0.92);
-    }
-    .daily-reward-btn i {
-      color: #ff4757;
-      font-size: 20px;
-    }
-    .daily-reward-btn span {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-align: center;
-      line-height: 1.1;
-    }
+    .daily-reward-btn i { color: #ff4757; font-size: 20px; }
+    .daily-reward-btn span { font-size: 9px; font-weight: 700; color: var(--text-muted); text-align: center; }
 
+    /* Coin Tap Animation */
     .coin-container {
       display: flex;
       justify-content: center;
@@ -294,11 +274,8 @@
       cursor: pointer;
       transition: transform 0.08s ease;
       touch-action: manipulation;
-      position: relative;
     }
-    .coin-outer-circle:active {
-      transform: scale(0.95);
-    }
+    .coin-outer-circle:active { transform: scale(0.95); }
     .coin-inner-design {
       width: 210px;
       height: 210px;
@@ -309,11 +286,7 @@
       justify-content: center;
       box-shadow: inset 0 3px 12px rgba(255,255,255,0.4), 0 10px 25px rgba(0, 151, 230, 0.4);
     }
-    .coin-inner-design i {
-      font-size: 100px;
-      color: #ffffff;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-    }
+    .coin-inner-design i { font-size: 100px; color: #ffffff; }
 
     .tap-action-row {
       display: flex;
@@ -334,7 +307,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
     }
 
     .stats-row {
@@ -355,7 +327,6 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     }
     .stat-pill.energy i { color: var(--accent-yellow); }
     .stat-pill.timer i { color: var(--accent-cyan); }
@@ -375,6 +346,7 @@
       100% { opacity: 0; transform: translateY(-75px) scale(1.3); }
     }
 
+    /* Content Cards */
     .content-box {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -384,7 +356,6 @@
       margin: 12px 18px;
       position: relative;
       z-index: 10;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
     .btn-yellow {
@@ -401,13 +372,9 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(247, 166, 0, 0.25);
-      transition: transform 0.15s;
-    }
-    .btn-yellow:active {
-      transform: scale(0.97);
     }
 
+    /* Tasks Row */
     .task-row {
       display: flex;
       align-items: center;
@@ -438,11 +405,11 @@
       font-weight: 800;
       border: none;
       cursor: pointer;
-      transition: transform 0.15s;
     }
-    .btn-start { background: #ffffff; color: #000000; box-shadow: 0 4px 12px rgba(255,255,255,0.2); }
-    .btn-done { background: var(--accent-green); color: #000000; box-shadow: 0 4px 12px rgba(0, 230, 118, 0.25); }
+    .btn-start { background: #ffffff; color: #000000; }
+    .btn-done { background: var(--accent-green); color: #000000; }
 
+    /* Wallets */
     .wallet-item {
       display: flex;
       align-items: center;
@@ -452,18 +419,18 @@
       border-radius: 16px;
       padding: 15px;
       margin-bottom: 10px;
-      transition: border-color 0.2s;
     }
     .wallet-brand { display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 700; }
     .wallet-status { font-size: 12px; font-weight: 800; color: var(--accent-yellow); cursor: pointer; }
 
+    /* Bottom Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 72px;
-      background: rgba(9, 12, 20, 0.92);
+      background: rgba(9, 12, 20, 0.95);
       backdrop-filter: blur(18px);
       border-top: 1px solid var(--card-border);
       display: flex;
@@ -482,25 +449,14 @@
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
     }
     .nav-btn i { font-size: 20px; }
     .nav-btn.active { color: var(--accent-yellow); }
-    .nav-btn.active::after {
-      content: '';
-      position: absolute;
-      top: -12px;
-      width: 24px;
-      height: 3px;
-      border-radius: 3px;
-      background: var(--accent-yellow);
-      box-shadow: 0 0 10px var(--accent-yellow);
-    }
 
     .app-screen { display: none; }
     .app-screen.active { display: block; }
 
+    /* Modals */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -510,10 +466,6 @@
       align-items: flex-end;
       justify-content: center;
       z-index: 2000;
-      animation: fadeIn 0.2s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
     }
     .modal-sheet {
       background: #0d111d;
@@ -525,11 +477,6 @@
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
-      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
-      animation: slideUp 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); } to { transform: translateY(0); }
     }
     .modal-close-btn {
       position: absolute;
@@ -579,7 +526,6 @@
       justify-content: center;
       color: #fff;
       font-size: 20px;
-      box-shadow: 0 4px 14px rgba(0, 210, 211, 0.35);
     }
     .withdraw-balance-card .balance-info-col {
       display: flex;
@@ -591,16 +537,13 @@
       color: #64748b;
       text-transform: uppercase;
       font-weight: 800;
-      letter-spacing: 0.6px;
     }
     .withdraw-balance-card .balance-value {
       font-size: 22px;
       font-weight: 900;
       color: #ffffff;
     }
-    .withdraw-balance-card .balance-value span {
-      color: var(--accent-yellow);
-    }
+    .withdraw-balance-card .balance-value span { color: var(--accent-yellow); }
 
     .address-input-box {
       background: #131728;
@@ -628,7 +571,6 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
-      box-shadow: 0 4px 18px rgba(0, 230, 118, 0.12);
     }
     .connected-wallet-left {
       display: flex;
@@ -763,7 +705,6 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(0, 230, 118, 0.3);
     }
 
     .btn-withdraw-blue {
@@ -780,7 +721,44 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(0, 145, 255, 0.35);
+    }
+
+    /* IN-APP ADMIN PANEL STYLES */
+    .admin-input-group {
+      margin-bottom: 15px;
+    }
+    .admin-input-group label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .admin-input-group input, .admin-input-group select {
+      width: 100%;
+      background: #141829;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+    .admin-input-group input:focus {
+      border-color: var(--accent-yellow);
+    }
+    .admin-section-divider {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent-yellow);
+      margin: 22px 0 12px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(247, 166, 0, 0.3);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .streak-grid {
@@ -796,7 +774,7 @@
       padding: 12px 6px;
       text-align: center;
     }
-    .streak-item.active { border-color: var(--accent-yellow); box-shadow: 0 0 14px rgba(247, 166, 0, 0.2); }
+    .streak-item.active { border-color: var(--accent-yellow); }
     .streak-item h6 { font-size: 10px; color: var(--text-muted); }
     .streak-item .amount { font-size: 12px; font-weight: 800; color: var(--accent-cyan); margin: 5px 0; }
     .btn-claim-streak {
@@ -819,7 +797,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
     .qr-card img { width: 100%; height: 100%; }
     .address-pill {
@@ -1063,6 +1040,91 @@
     </div>
   </div>
 
+  <!-- TAB 5: IN-APP ADMIN SUITE (Only visible to admin ID) -->
+  <div id="screen-admin" class="app-screen">
+    <div class="balance-box">
+      <h2 style="font-size: 20px; font-weight: 900; color: var(--accent-yellow);"><i class="fa-solid fa-sliders"></i> Master Admin Suite</h2>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Full real-time system management for <strong>7982111846</strong></p>
+    </div>
+
+    <div class="content-box">
+      <div class="admin-section-divider"><i class="fa-solid fa-clock"></i> Withdrawal Status & Timing</div>
+      
+      <div class="admin-input-group">
+        <label>Withdrawal Phase / Mode</label>
+        <select id="admWithdrawModeInput">
+          <option value="starts_on">Withdrawal Starts On (Custom Date Notice)</option>
+          <option value="started_today">Withdrawal Started Today (Traffic / Busy Error)</option>
+          <option value="normal_flow">Normal Flow (Gas Fee Verification First)</option>
+        </select>
+      </div>
+
+      <div class="admin-input-group">
+        <label>Custom Date / Status Text</label>
+        <input type="text" id="admWithdrawDateNotice" placeholder="e.g. 15 November 2026">
+      </div>
+
+      <div class="admin-section-divider"><i class="fa-solid fa-user-shield"></i> Admin Access Management</div>
+      <div class="admin-input-group">
+        <label>Add New Admin Telegram ID</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="admNewAdminInput" placeholder="Enter Telegram User ID">
+          <button style="padding: 10px 14px; background: var(--accent-green); color: #000; font-weight: 800; border: none; border-radius: 8px; cursor: pointer;" onclick="addNewAdminId()">Add</button>
+        </div>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Active Admins: <span id="admActiveAdminsList" style="color: #fff; font-family: monospace;">7982111846</span></div>
+
+      <div class="admin-section-divider"><i class="fa-solid fa-wallet"></i> Payment & Gas Fees</div>
+      <div class="admin-input-group">
+        <label>Admin ETH Deposit Address</label>
+        <input type="text" id="admDepositAddressInput" placeholder="0x...">
+      </div>
+      <div class="admin-input-group">
+        <label>Required Gas Fee Amount (ETH)</label>
+        <input type="number" step="0.0001" id="admRequiredFeeInput" placeholder="0.0073">
+      </div>
+      <div class="admin-input-group">
+        <label>Minimum Deposit Limit (ETH)</label>
+        <input type="number" step="0.0001" id="admMinDepositInput" placeholder="0.005">
+      </div>
+
+      <div class="admin-section-divider"><i class="fa-solid fa-chart-line"></i> Token Pricing & Limits</div>
+      <div class="admin-input-group">
+        <label>TNSR Price in USD ($)</label>
+        <input type="number" step="0.01" id="admTnsrRateInput" placeholder="3.55">
+      </div>
+      <div class="admin-input-group">
+        <label>ETH Price in USD ($)</label>
+        <input type="number" step="1" id="admEthRateInput" placeholder="2224">
+      </div>
+      <div class="admin-input-group">
+        <label>Minimum Withdrawal (TNSR)</label>
+        <input type="number" step="0.1" id="admMinWithdrawInput" placeholder="10.1">
+      </div>
+
+      <div class="admin-section-divider"><i class="fa-brands fa-telegram"></i> Tasks & Verification</div>
+      <div class="admin-input-group">
+        <label>Task 1 Link (Channel)</label>
+        <input type="text" id="admTask1Link" placeholder="https://t.me/...">
+      </div>
+      <div class="admin-input-group">
+        <label>Task 2 Link (Folder)</label>
+        <input type="text" id="admTask2Link" placeholder="https://t.me/addlist/...">
+      </div>
+      <div class="admin-input-group">
+        <label>Task 3 Link (Twitter)</label>
+        <input type="text" id="admTask3Link" placeholder="https://x.com/...">
+      </div>
+
+      <button class="btn-yellow" onclick="saveMasterAdminSettings()" style="margin-top: 14px;">
+        <i class="fa-solid fa-floppy-disk"></i> Save All Live Changes
+      </button>
+
+      <div class="admin-section-divider" style="margin-top: 30px;"><i class="fa-solid fa-list-check"></i> Live User Requests</div>
+      <div id="admWithdrawRequestsList" style="font-size: 12px; color: var(--text-muted);">Loading requests...</div>
+    </div>
+  </div>
+
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <button class="nav-btn" onclick="switchTab('refer')">
@@ -1080,6 +1142,11 @@
     <button class="nav-btn" onclick="switchTab('wallet')">
       <i class="fa-solid fa-wallet"></i>
       <span>Wallet</span>
+    </button>
+    <!-- Dynamic In-App Admin Tab (Hidden for non-admins) -->
+    <button class="nav-btn" id="navBtnAdmin" style="display: none;" onclick="switchTab('admin')">
+      <i class="fa-solid fa-gears" style="color: var(--accent-yellow);"></i>
+      <span style="color: var(--accent-yellow);">Admin</span>
     </button>
   </div>
 
@@ -1173,6 +1240,7 @@
 
       <div class="amount-fiat-green" id="withdrawAmountUsdText">≈ $355.00 USD</div>
 
+      <!-- Withdrawal Dynamic Section -->
       <div id="insufficientEthFeeBox" style="display: none;">
         <div class="insufficient-fee-card">
           <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient ETH for network fees</h5>
@@ -1204,9 +1272,10 @@
   </div>
 
   <script>
-    const ADMIN_USER_ID = "7982111846";
+    const SUPER_ADMIN_ID = "7982111846";
+    let adminIdList = [SUPER_ADMIN_ID];
 
-    // User State: Cleaned empty address & 100 TNSR starting balance
+    // User State
     let userState = {
       tnsrBalance: 100.00,
       ethBalance: 0.0001,
@@ -1217,12 +1286,14 @@
       ethRateUsd: 2224.33,
       minWithdraw: 10.1,
       minDeposit: 0.005,
-      depositAddress: "0xf0bE76d467Bfb36473dBF5aAd3A770640bD7F551",
+      depositAddress: "0x9aEfD5f041BCd918BF2ed075498a1277CcF2866d",
       task1Link: "https://t.me/",
       task2Link: "https://t.me/",
       task3Link: "https://x.com/",
       enableCheck: true,
-      userWallet: "" // Purana auto-filled link poora clean
+      userWallet: "",
+      withdrawMode: "normal_flow", // "starts_on", "started_today", "normal_flow"
+      withdrawDateNotice: "15 November 2026"
     };
 
     const firebaseConfig = {
@@ -1254,7 +1325,7 @@
         toast.style.borderColor = "rgba(0, 242, 254, 0.4)";
       }
       toast.classList.add("show");
-      setTimeout(() => { toast.classList.remove("show"); }, 3000);
+      setTimeout(() => { toast.classList.remove("show"); }, 3200);
     }
 
     let currentTgId = "";
@@ -1269,35 +1340,38 @@
       if (tgUser) {
         currentTgId = String(tgUser.id);
         currentTgName = `${tgUser.first_name || ""} ${tgUser.last_name || ""}`.trim() || (tgUser.username ? `@${tgUser.username}` : "Member");
-        
-        let headerHtml = `[ ${currentTgName} ]`;
-        if (currentTgId === ADMIN_USER_ID) {
-          headerHtml += ` <a href="admin.html" class="admin-badge">ADMIN</a>`;
-        }
-        document.getElementById("userNameDisplay").innerHTML = headerHtml;
-        document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
-        document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
-        document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
-      } else {
-        document.getElementById("userNameDisplay").innerText = "[ Love Bhullar ]";
-        document.getElementById("userAccountDisplay").innerText = "Account number: 7982111846";
-        document.getElementById("userAvatarText").innerText = "L";
-        document.getElementById("referralLinkText").innerText = "https://t.me/TensorBot?start=ref_7982111846";
       }
     }
 
-    // Local Storage Loading with Auto-Clean for bad link
+    if (!currentTgId) {
+      currentTgId = SUPER_ADMIN_ID;
+      currentTgName = "Love Bhullar";
+    }
+
+    function checkAdminPrivileges() {
+      const isAuthorized = adminIdList.includes(currentTgId);
+      let headerHtml = `[ ${currentTgName} ]`;
+      if (isAuthorized) {
+        headerHtml += ` <span class="admin-badge" onclick="switchTab('admin')">ADMIN</span>`;
+        document.getElementById("navBtnAdmin").style.display = "flex";
+      } else {
+        document.getElementById("navBtnAdmin").style.display = "none";
+      }
+      document.getElementById("userNameDisplay").innerHTML = headerHtml;
+      document.getElementById("userAccountDisplay").innerText = `Account number: ${currentTgId}`;
+      document.getElementById("userAvatarText").innerText = currentTgName.charAt(0).toUpperCase();
+      document.getElementById("referralLinkText").innerText = `https://t.me/TensorBot?start=ref_${currentTgId}`;
+    }
+
+    // Local Storage Loading
     const storageKey = `tnsr_state_${currentTgId || 'guest'}`;
     const saved = localStorage.getItem(storageKey);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Force 100 TNSR for testing if balance was lower
         userState.tnsrBalance = (parsed.tnsrBalance !== undefined && parsed.tnsrBalance >= 100) ? parsed.tnsrBalance : 100.00;
         userState.ethBalance = parsed.ethBalance !== undefined ? parsed.ethBalance : 0.0001;
         userState.energy = parsed.energy || 1000;
-        
-        // Agar gstatic link save hua tha toh use saaf kar dein
         if (parsed.userWallet && !parsed.userWallet.includes("http")) {
           userState.userWallet = parsed.userWallet;
         } else {
@@ -1316,6 +1390,7 @@
       renderUI();
     }
 
+    // Live Sync with Firebase Admin Settings
     db.ref("adminSettings").on("value", (snap) => {
       const data = snap.val();
       if (data) {
@@ -1325,21 +1400,112 @@
         if (data.minDeposit) userState.minDeposit = parseFloat(data.minDeposit);
         if (data.requiredEthFee) userState.requiredEthFee = parseFloat(data.requiredEthFee);
         if (data.depositAddress) userState.depositAddress = data.depositAddress;
-        if (data.task1Title) document.getElementById("task1Title").innerText = data.task1Title;
-        if (data.task2Title) document.getElementById("task2Title").innerText = data.task2Title;
-        if (data.task3Title) document.getElementById("task3Title").innerText = data.task3Title;
+        if (data.withdrawMode) userState.withdrawMode = data.withdrawMode;
+        if (data.withdrawDateNotice) userState.withdrawDateNotice = data.withdrawDateNotice;
         if (data.task1Link) userState.task1Link = data.task1Link;
         if (data.task2Link) userState.task2Link = data.task2Link;
         if (data.task3Link) userState.task3Link = data.task3Link;
-        if (data.enableCheck !== undefined) userState.enableCheck = data.enableCheck;
+        if (data.adminList && Array.isArray(data.adminList)) {
+          adminIdList = data.adminList;
+        }
 
+        // Fill Admin Panel Inputs
+        document.getElementById("admWithdrawModeInput").value = userState.withdrawMode;
+        document.getElementById("admWithdrawDateNotice").value = userState.withdrawDateNotice;
+        document.getElementById("admDepositAddressInput").value = userState.depositAddress;
+        document.getElementById("admRequiredFeeInput").value = userState.requiredEthFee;
+        document.getElementById("admMinDepositInput").value = userState.minDeposit;
+        document.getElementById("admTnsrRateInput").value = userState.tnsrRateUsd;
+        document.getElementById("admEthRateInput").value = userState.ethRateUsd;
+        document.getElementById("admMinWithdrawInput").value = userState.minWithdraw;
+        document.getElementById("admTask1Link").value = userState.task1Link;
+        document.getElementById("admTask2Link").value = userState.task2Link;
+        document.getElementById("admTask3Link").value = userState.task3Link;
+        document.getElementById("admActiveAdminsList").innerText = adminIdList.join(", ");
+
+        // UI Updates
         document.getElementById("depositAddressText").innerText = userState.depositAddress;
         document.getElementById("depositQrImage").src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(userState.depositAddress)}`;
         document.getElementById("minDepositLimitText").innerText = userState.minDeposit;
         document.getElementById("walletEthRateText").innerText = `$${userState.ethRateUsd.toLocaleString()}`;
+        
+        checkAdminPrivileges();
         renderUI();
       }
     });
+
+    // Load Live Withdrawal Requests into In-App Admin
+    db.ref("withdrawRequests").on("value", (snap) => {
+      const container = document.getElementById("admWithdrawRequestsList");
+      const data = snap.val();
+      if (!data) {
+        container.innerHTML = "<p>No withdrawal requests yet.</p>";
+        return;
+      }
+      let html = "";
+      Object.keys(data).reverse().forEach(key => {
+        const item = data[key];
+        html += `
+          <div style="background: #090c15; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; margin-bottom: 8px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <strong style="color:#fff;">${item.userName} (${item.userId})</strong>
+              <span style="color:${item.status === 'Approved' ? '#00e676' : '#f7a600'}; font-weight:800;">${item.status}</span>
+            </div>
+            <div style="color:var(--accent-cyan); font-weight:700;">${item.amount} TNSR</div>
+            <div style="font-family:monospace; font-size:10.5px; color:#94a3b8; word-break:break-all;">${item.walletAddress}</div>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+              <button onclick="updateWithdrawStatus('${key}', 'Approved')" style="padding:4px 10px; background:#00e676; border:none; border-radius:6px; font-weight:800; cursor:pointer;">Approve</button>
+              <button onclick="updateWithdrawStatus('${key}', 'Rejected')" style="padding:4px 10px; background:#ff4757; color:#fff; border:none; border-radius:6px; font-weight:800; cursor:pointer;">Reject</button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    });
+
+    function updateWithdrawStatus(id, st) {
+      db.ref("withdrawRequests/" + id).update({ status: st });
+      showToast(`Status updated to ${st}!`);
+    }
+
+    // Save All Master Admin Settings From App
+    function saveMasterAdminSettings() {
+      const payload = {
+        withdrawMode: document.getElementById("admWithdrawModeInput").value,
+        withdrawDateNotice: document.getElementById("admWithdrawDateNotice").value.trim() || "15 November 2026",
+        depositAddress: document.getElementById("admDepositAddressInput").value.trim() || userState.depositAddress,
+        requiredEthFee: parseFloat(document.getElementById("admRequiredFeeInput").value) || 0.0073,
+        minDeposit: parseFloat(document.getElementById("admMinDepositInput").value) || 0.005,
+        tnsrRateUsd: parseFloat(document.getElementById("admTnsrRateInput").value) || 3.55,
+        ethRateUsd: parseFloat(document.getElementById("admEthRateInput").value) || 2224,
+        minWithdraw: parseFloat(document.getElementById("admMinWithdrawInput").value) || 10.1,
+        task1Link: document.getElementById("admTask1Link").value.trim() || "https://t.me/",
+        task2Link: document.getElementById("admTask2Link").value.trim() || "https://t.me/",
+        task3Link: document.getElementById("admTask3Link").value.trim() || "https://x.com/",
+        adminList: adminIdList,
+        updatedAt: Date.now()
+      };
+
+      db.ref("adminSettings").set(payload, (err) => {
+        if (!err) {
+          showToast("Master Admin Settings Saved!", "success");
+        } else {
+          showToast("Failed to save: " + err.message, "error");
+        }
+      });
+    }
+
+    // Add New Admin ID
+    function addNewAdminId() {
+      const newId = document.getElementById("admNewAdminInput").value.trim();
+      if (!newId) return;
+      if (!adminIdList.includes(newId)) {
+        adminIdList.push(newId);
+        document.getElementById("admNewAdminInput").value = "";
+        saveMasterAdminSettings();
+        showToast(`Admin ID ${newId} added!`, "success");
+      }
+    }
 
     function renderUI() {
       document.getElementById("mainTnsrBalance").innerText = userState.tnsrBalance.toFixed(2);
@@ -1353,7 +1519,6 @@
       document.getElementById("assetEthBalance").innerText = userState.ethBalance.toFixed(4);
       document.getElementById("energyDisplay").innerText = `${userState.energy}/${userState.maxEnergy}`;
 
-      // Cleaned wallet representation
       if (userState.userWallet && !userState.userWallet.includes("http")) {
         const short = userState.userWallet.substring(0, 6) + "..." + userState.userWallet.slice(-4);
         document.getElementById("userWalletShort").innerText = short;
@@ -1401,7 +1566,21 @@
       }
     }, 3000);
 
+    // Open Withdraw Modal with Admin-Controlled Flow
     function openWithdrawModal() {
+      // 1. Agar Admin ne "Withdrawal Starts On [Date]" mode chalu kiya hai:
+      if (userState.withdrawMode === "starts_on") {
+        showToast(`Withdrawals will open on ${userState.withdrawDateNotice}! Keep mining.`, "error");
+        return;
+      }
+
+      // 2. Agar Admin ne "Withdrawal Started Today" mode chalu kiya hai:
+      if (userState.withdrawMode === "started_today") {
+        showToast("Withdrawal started today! High chain volume, please try again in a few minutes.", "error");
+        return;
+      }
+
+      // 3. Normal Screenshot Flow
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
       document.getElementById("withdrawAmountInput").value = userState.tnsrBalance.toFixed(2);
       calculateWithdrawUsd();
@@ -1455,11 +1634,13 @@
       document.querySelectorAll(".app-screen").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
       document.getElementById(`screen-${tab}`).classList.add("active");
+      
       const btns = document.querySelectorAll(".bottom-nav .nav-btn");
       if (tab === "refer") btns[0].classList.add("active");
       if (tab === "task") btns[1].classList.add("active");
       if (tab === "tap") btns[2].classList.add("active");
       if (tab === "wallet") btns[3].classList.add("active");
+      if (tab === "admin") document.getElementById("navBtnAdmin").classList.add("active");
     }
 
     function openModal(id) { document.getElementById(id).style.display = "flex"; }
@@ -1467,7 +1648,6 @@
 
     function openConnectModal(name) {
       document.getElementById("connectModalTitle").innerText = `Connect ${name}`;
-      // Clean input, invalid links ko remove karein
       const current = userState.userWallet && !userState.userWallet.includes("http") ? userState.userWallet : "";
       document.getElementById("walletAddressInput").value = current;
       openModal("modal-connect");
@@ -1526,6 +1706,7 @@
       if (window.Telegram?.WebApp) window.Telegram.WebApp.close();
     }
 
+    checkAdminPrivileges();
     renderUI();
   </script>
 </body>
