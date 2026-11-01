@@ -38,6 +38,7 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      padding-top: 10px;
       padding-bottom: 78px;
     }
 
@@ -65,35 +66,12 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Single Clean Header */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 18px;
-    }
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 19px;
-      font-weight: 800;
-    }
-    .top-bar-left i { font-size: 16px; cursor: pointer; color: #a4adc1; }
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: #a4adc1;
-      font-size: 16px;
-    }
-
-    /* User Profile Bar */
+    /* User Profile Bar (Only shown on Tap Screen) */
     .header-user-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 18px 12px;
+      padding: 6px 18px 12px;
     }
     .user-profile-chip {
       display: flex;
@@ -405,13 +383,13 @@
       cursor: pointer;
     }
 
-    /* WALLET SCREEN */
+    /* WALLET SCREEN (Exact 1000152361.jpg Replica - No Profile Chip) */
     .wallet-hero-box {
       background: #141724;
       border: 1px solid #23293d;
       border-radius: 20px;
       padding: 24px 18px;
-      margin: 15px 18px 20px;
+      margin: 10px 18px 20px;
       text-align: center;
     }
     .wallet-hero-box .label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
@@ -592,7 +570,7 @@
       cursor: not-allowed;
     }
 
-    /* EXACT WITHDRAW MODAL STYLING (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) */
+    /* EXACT WITHDRAW MODAL */
     .field-label {
       font-size: 11px;
       letter-spacing: 0.5px;
@@ -657,7 +635,6 @@
       font-family: monospace;
     }
 
-    /* Exact Amount Box */
     .amount-input-box {
       background: #151928;
       border: 1px solid #232b42;
@@ -750,7 +727,6 @@
       margin: 0;
     }
 
-    /* Official Green Button with Solana Logo */
     .btn-topup-sol {
       width: 100%;
       background: #00c853;
@@ -895,40 +871,28 @@
     <span id="toastMessage">Notification</span>
   </div>
 
-  <!-- Single Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <i class="fa-solid fa-xmark" onclick="closeApp()"></i>
-      <span>Tensor Mining</span>
-    </div>
-    <div class="top-bar-right">
-      <i class="fa-solid fa-chevron-down"></i>
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </div>
-  </div>
-
-  <!-- User Profile Header -->
-  <div class="header-user-card">
-    <div class="user-profile-chip">
-      <div class="user-avatar" id="userAvatarText">L</div>
-      <div class="user-details">
-        <h4 id="userNameDisplay">[ Love Bhullar ]</h4>
-        <p>Mine · Earn · Grow</p>
-        <span id="userAccountDisplay">Account number: 7982111846</span>
-      </div>
-    </div>
-    <div class="sol-wallet-top" onclick="openWalletOverview()">
-      <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
-      <div class="sol-label-col">
-        <span>WALLET</span>
-        <strong id="topSolBalance">0.0000 SOL</strong>
-      </div>
-      <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
-    </div>
-  </div>
-
   <!-- TAB 1: TAP SCREEN -->
   <div id="screen-tap" class="app-screen active">
+    <!-- User Profile Header ONLY on Tap Tab -->
+    <div class="header-user-card">
+      <div class="user-profile-chip">
+        <div class="user-avatar" id="userAvatarText">L</div>
+        <div class="user-details">
+          <h4 id="userNameDisplay">[ Love Bhullar ]</h4>
+          <p>Mine · Earn · Grow</p>
+          <span id="userAccountDisplay">Account number: 7982111846</span>
+        </div>
+      </div>
+      <div class="sol-wallet-top" onclick="openWalletOverview()">
+        <div class="sol-icon-box"><i class="fa-solid fa-bolt"></i></div>
+        <div class="sol-label-col">
+          <span>WALLET</span>
+          <strong id="topSolBalance">0.0000 SOL</strong>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-gray);"></i>
+      </div>
+    </div>
+
     <div class="balance-box">
       <h1><span id="mainTnsrBalance">718.00</span> TENSOR</h1>
       <div class="fiat" id="mainUsdValue">≈ $28.15 USD</div>
@@ -1104,9 +1068,9 @@
     </div>
   </div>
 
-  <!-- TAB 4: WALLET SCREEN -->
+  <!-- TAB 4: WALLET SCREEN (Direct Clean Start without Profile Chip) -->
   <div id="screen-wallet" class="app-screen">
-    <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 5px;">WALLET</h3>
+    <h3 style="text-align: center; font-size: 18px; font-weight: 900; margin: 15px 0 10px;">WALLET</h3>
 
     <div class="wallet-hero-box">
       <div class="label">TOTAL BALANCE</div>
@@ -1302,13 +1266,12 @@
     </div>
   </div>
 
-  <!-- EXACT 100% REPLICA WITHDRAW MODAL (Screenshots 1000152365_3.jpg & 1000152364_3.jpg) -->
+  <!-- EXACT 100% REPLICA WITHDRAW MODAL -->
   <div class="modal-overlay" id="modal-withdraw">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-withdraw')"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="modal-title">Withdraw TENSOR</h3>
 
-      <!-- BALANCE CARD WITH TENSOR LOGO -->
       <div class="withdraw-balance-card">
         <div class="mini-icon-box">
           <svg viewBox="0 0 100 100">
@@ -1321,13 +1284,11 @@
         </div>
       </div>
 
-      <!-- DESTINATION ADDRESS: CLEAN & NEVER AUTO-FILLED -->
       <label class="field-label">DESTINATION ADDRESS</label>
       <div class="input-address-box">
         <input type="text" id="withdrawDestinationInput" placeholder="Enter or paste wallet address" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
 
-      <!-- AMOUNT ROW: TENSOR LOGO + GOLDEN TENSOR TEXT + MAX -->
       <label class="field-label">AMOUNT</label>
       <div class="amount-input-box">
         <div class="left-token">
@@ -1344,10 +1305,8 @@
         </div>
       </div>
 
-      <!-- GREEN FIAT AMOUNT: $0.39 USD -->
       <div class="fiat-amount-green" id="withdrawAmountUsdText">≈ $0.39 USD</div>
 
-      <!-- INSUFFICIENT SOL ALERT & GREEN TOPUP BUTTON WITH SOLANA LOGO -->
       <div id="insufficientSolFeeBox">
         <div class="insufficient-sol-card">
           <h5><i class="fa-solid fa-triangle-exclamation"></i> Insufficient SOL for network fees</h5>
@@ -1365,7 +1324,6 @@
         </button>
       </div>
 
-      <!-- BLUE WITHDRAW BUTTON (DIRECT MODE) -->
       <div id="directWithdrawBtnBox" style="display: none;">
         <button class="btn-withdraw-direct" id="directWithdrawButton" onclick="submitWithdraw()">
           Withdraw
@@ -1379,7 +1337,6 @@
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('modal-wallet-overview')"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- SUBVIEW 1: OVERVIEW -->
       <div id="walletViewMain" class="wallet-subview active">
         <h3 class="modal-title" style="margin-bottom: 15px;">Wallet</h3>
 
@@ -1434,7 +1391,6 @@
         </div>
       </div>
 
-      <!-- SUBVIEW 2: SOLANA WITHDRAW -->
       <div id="walletViewWithdraw" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1475,7 +1431,6 @@
         <p style="text-align: center; font-size: 11px; color: var(--text-gray);">Minimum withdrawal 0.1 SOL.</p>
       </div>
 
-      <!-- SUBVIEW 3: HISTORY -->
       <div id="walletViewHistory" class="wallet-subview">
         <div class="subview-header-back">
           <div class="subview-back-icon" onclick="switchWalletSubView('main')"><i class="fa-solid fa-arrow-left"></i></div>
@@ -1538,7 +1493,7 @@
       requiredSolFee: 0.12,
       energy: 996,
       maxEnergy: 1000,
-      tnsrRateUsd: 0.039,
+      tnsrRateUsd: 0.0392,
       solRateUsd: 95.51,
       minWithdraw: 10,
       depositAddress: "9aEfD5f041BCd918BF2ed075498a1277CcF2866d",
@@ -1623,8 +1578,11 @@
         userState.solBalance = parsed.solBalance !== undefined ? parsed.solBalance : 0.0000;
         userState.energy = parsed.energy || 996;
         userState.isDailyClaimed = parsed.isDailyClaimed || false;
-        if (parsed.userWallet && !parsed.userWallet.includes("http")) {
+        // Purana fake / short value (jaise "82") clean karein
+        if (parsed.userWallet && parsed.userWallet.length > 20 && !parsed.userWallet.includes("http")) {
           userState.userWallet = parsed.userWallet;
+        } else {
+          userState.userWallet = "";
         }
       } catch(e) {}
     }
@@ -1704,7 +1662,7 @@
       document.getElementById("walletUsdDisplay").innerText = `≈ $${totalUsd} USD`;
       document.getElementById("energyDisplay").innerText = `${userState.energy}/${userState.maxEnergy}`;
 
-      if (userState.userWallet && !userState.userWallet.includes("http")) {
+      if (userState.userWallet && userState.userWallet.length > 20) {
         const short = userState.userWallet.substring(0, 6) + "..." + userState.userWallet.slice(-4);
         document.getElementById("userWalletShort").innerText = short;
       } else {
@@ -1790,7 +1748,7 @@
       }
 
       document.getElementById("withdrawModalBalance").innerText = userState.tnsrBalance.toFixed(2);
-      document.getElementById("withdrawDestinationInput").value = ""; // Always empty
+      document.getElementById("withdrawDestinationInput").value = ""; // Empty without prefill
       document.getElementById("withdrawAmountInput").value = "10";
       calculateWithdrawUsd();
 
